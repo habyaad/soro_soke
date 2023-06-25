@@ -6,6 +6,7 @@ import 'package:stacked/stacked_annotations.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:soro_soke/ui/views/login/login_view.dart';
 import 'package:soro_soke/ui/views/sign_up/sign_up_view.dart';
+import 'package:soro_soke/services/authentication_service.dart';
 // @stacked-import
 
 @StackedApp(
@@ -20,7 +21,8 @@ import 'package:soro_soke/ui/views/sign_up/sign_up_view.dart';
     LazySingleton(classType: BottomSheetService),
     LazySingleton(classType: DialogService),
     LazySingleton(classType: NavigationService),
-    // @stacked-service
+    LazySingleton(classType: AuthenticationService),
+// @stacked-service
   ],
   bottomsheets: [
     StackedBottomsheet(classType: NoticeSheet),
