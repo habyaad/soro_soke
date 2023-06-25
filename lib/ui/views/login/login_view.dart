@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import '../../../utils/app_colors.dart';
 import '../../../utils/ui_helpers.dart';
+import '../../../utils/validators.dart';
 import '../../common/general_button.dart';
 import 'login_viewmodel.dart';
 
@@ -51,12 +52,8 @@ class LoginView extends StackedView<LoginViewModel> {
                               borderRadius: BorderRadius.circular(6.0),
                             ),
                           ),
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return 'Please enter an email';
-                            }
-                            return null;
-                          },
+                          validator: (value) =>
+                              Validator.validateEmail(value),
                         ),
                         verticalSpaceMedium,
                         const Text(
@@ -78,24 +75,26 @@ class LoginView extends StackedView<LoginViewModel> {
                               borderRadius: BorderRadius.circular(6.0),
                             ),
                           ),
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return 'Please enter a password';
-                            }
-                            return null;
-                          },
+                          validator: (value) =>
+                              Validator.validatePassword(value),
                         ),
                         verticalSpaceLarge,
                         Center(
                             child: GeneralButton(
-                          onPressed: () {},
-                          buttonText: 'Create Account',
+                          onPressed: () {
+                            if (viewModel.formKey.currentState!.validate()) {
+                              viewModel.formKey.currentState!.save();
+                              // Do something with the validated and saved values
+                              viewModel.signIn();
+                            }
+                          },
+                          buttonText: 'Login',
                         )),
                         verticalSpaceSmall,
                         Center(
                           child: GestureDetector(
                             onTap: () {
-                              Navigator.pop(context);
+                              Navigator.pushReplacementNamed(context, '/sign-up-view');
                             },
                             child: const Text(
                               "Don't have an account yet? Sign up",
