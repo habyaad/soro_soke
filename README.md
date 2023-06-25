@@ -4,11 +4,11 @@
 
 ### Objectives
   #### Exploring the possibilities of Firebase backend as a service (BAAS)
-    -  Authentication
-    -  Database
+    -  Authentication - Done ✅
+    -  Database - ... Loding!!!
     -  Push Notifications
   
-  #### Using stacked architecture(MVVM)
+  #### Using stacked architecture(MVVM) - Done ✅
   
   #### Writing tests proper
 
