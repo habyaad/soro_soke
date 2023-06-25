@@ -18,7 +18,8 @@ class Validator {
       return 'Email is required.';
     }
 
-    final emailRegex = RegExp(r'^[\w-]+(\.[\w-]+)*@[a-zA-Z\d-]+(\.[a-zA-Z\d-]+)*\.[a-zA-Z\d-]+$');
+    final emailRegex = RegExp(
+        r'^[\w-]+(\.[\w-]+)*@[a-zA-Z\d-]+(\.[a-zA-Z\d-]+)*\.[a-zA-Z\d-]+$');
     if (!emailRegex.hasMatch(email)) {
       return 'Invalid email address.';
     }
