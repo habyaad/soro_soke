@@ -14,18 +14,18 @@ class StartupView extends StackedView<StartupViewModel> {
     StartupViewModel viewModel,
     Widget? child,
   ) {
-    return Scaffold(
+    return const Scaffold(
       body: Center(
         child: Padding(
-          padding: const EdgeInsets.all(16),
+          padding: EdgeInsets.all(16),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              const Text(
+              Text(
                 'Soro Soke',
                 style: TextStyle(fontSize: 40, fontWeight: FontWeight.w900),
               ),
-              const Text('Talk to your loved ones on what is lingering on your mind',
+              Text('Talk to your loved ones on what is lingering on your mind',
                   style: TextStyle(fontSize: 16)),
               verticalSpaceMedium,
               SizedBox(
