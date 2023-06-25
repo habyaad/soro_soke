@@ -4,6 +4,7 @@ import 'package:soro_soke/app/app.dialogs.dart';
 import 'package:soro_soke/app/app.locator.dart';
 import 'package:soro_soke/app/app.router.dart';
 import 'package:stacked_services/stacked_services.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -19,6 +20,9 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: ThemeData(
+        textTheme: GoogleFonts.mulishTextTheme()
+      ),
       initialRoute: Routes.startupView,
       onGenerateRoute: StackedRouter().onGenerateRoute,
       navigatorKey: StackedService.navigatorKey,
