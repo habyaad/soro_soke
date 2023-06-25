@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:soro_soke/ui/common/app_colors.dart';
 import 'package:soro_soke/ui/common/general_button.dart';
-import 'package:soro_soke/ui/common/ui_helpers.dart';
 import 'package:stacked/stacked.dart';
 
+import '../../../utils/app_colors.dart';
+import '../../../utils/ui_helpers.dart';
+import '../../../utils/validators.dart';
 import 'sign_up_viewmodel.dart';
 
 class SignUpView extends StackedView<SignUpViewModel> {
@@ -51,12 +52,8 @@ class SignUpView extends StackedView<SignUpViewModel> {
                                 borderRadius: BorderRadius.circular(6.0),
                               ),
                             ),
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return 'Please enter a username';
-                              }
-                              return null;
-                            },
+                            validator: (value) =>
+                                Validator.validateUsername(value),
                           ),
                           verticalSpaceMedium,
                           const Text(
@@ -78,12 +75,8 @@ class SignUpView extends StackedView<SignUpViewModel> {
                                 borderRadius: BorderRadius.circular(6.0),
                               ),
                             ),
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return 'Please enter an email';
-                              }
-                              return null;
-                            },
+                            validator: (value) =>
+                                Validator.validateEmail(value),
                           ),
                           verticalSpaceMedium,
                           const Text(
@@ -105,24 +98,32 @@ class SignUpView extends StackedView<SignUpViewModel> {
                                 borderRadius: BorderRadius.circular(6.0),
                               ),
                             ),
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return 'Please enter a password';
-                              }
-                              return null;
-                            },
+                            validator: (value) =>
+                                Validator.validatePassword(value),
                           ),
                           verticalSpaceLarge,
-                          Center(child: GeneralButton(onPressed: () {  }, buttonText: 'Create Account',)),
+                          Center(
+                              child: GeneralButton(
+                            onPressed: () {
+                              if (viewModel.formKey.currentState!.validate()) {
+                                viewModel.formKey.currentState!.save();
+                                // Do something with the validated and saved values
+                                viewModel.signUp();
+                              }
+                            },
+                            buttonText: 'Create Account',
+                          )),
                           verticalSpaceSmall,
                           Center(
                             child: GestureDetector(
-                              onTap: (){
-                                Navigator.pushNamed(context, '/login-view');
+                              onTap: () {
+                                Navigator.pushReplacementNamed(context, '/login-view');
                               },
                               child: const Text(
                                 "Already have an account? Sign in",
-                                style: TextStyle(fontWeight: FontWeight.w500, color: kcPrimaryColorDark),
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w500,
+                                    color: kcPrimaryColorDark),
                               ),
                             ),
                           ),
