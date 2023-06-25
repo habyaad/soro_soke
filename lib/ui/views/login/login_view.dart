@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:soro_soke/ui/common/app_colors.dart';
 import 'package:stacked/stacked.dart';
-
+import '../../../utils/app_colors.dart';
+import '../../../utils/ui_helpers.dart';
 import '../../common/general_button.dart';
-import '../../common/ui_helpers.dart';
 import 'login_viewmodel.dart';
 
 class LoginView extends StackedView<LoginViewModel> {
@@ -87,16 +86,22 @@ class LoginView extends StackedView<LoginViewModel> {
                           },
                         ),
                         verticalSpaceLarge,
-                        Center(child: GeneralButton(onPressed: () {  }, buttonText: 'Create Account',)),
+                        Center(
+                            child: GeneralButton(
+                          onPressed: () {},
+                          buttonText: 'Create Account',
+                        )),
                         verticalSpaceSmall,
                         Center(
                           child: GestureDetector(
-                            onTap: (){
+                            onTap: () {
                               Navigator.pop(context);
                             },
                             child: const Text(
                               "Don't have an account yet? Sign up",
-                              style: TextStyle(fontWeight: FontWeight.w500, color: kcPrimaryColorDark),
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w500,
+                                  color: kcPrimaryColorDark),
                             ),
                           ),
                         ),

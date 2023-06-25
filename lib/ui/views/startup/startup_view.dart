@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:stacked/stacked.dart';
-import 'package:soro_soke/ui/common/ui_helpers.dart';
-
-import '../../common/app_colors.dart';
+import '../../../utils/app_colors.dart';
+import '../../../utils/ui_helpers.dart';
 import 'startup_viewmodel.dart';
 
 class StartupView extends StackedView<StartupViewModel> {
@@ -15,19 +14,18 @@ class StartupView extends StackedView<StartupViewModel> {
     StartupViewModel viewModel,
     Widget? child,
   ) {
-    return const Scaffold(
+    return Scaffold(
       body: Center(
         child: Padding(
-          padding: EdgeInsets.all(16),
+          padding: const EdgeInsets.all(16),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Text(
+              const Text(
                 'Soro Soke',
                 style: TextStyle(fontSize: 40, fontWeight: FontWeight.w900),
               ),
-              Text(
-                  'Talk to your loved ones on what is lingering on your mind',
+              const Text('Talk to your loved ones on what is lingering on your mind',
                   style: TextStyle(fontSize: 16)),
               verticalSpaceMedium,
               SizedBox(

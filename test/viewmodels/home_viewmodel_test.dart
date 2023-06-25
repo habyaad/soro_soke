@@ -2,8 +2,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:soro_soke/app/app.bottomsheets.dart';
 import 'package:soro_soke/app/app.locator.dart';
-import 'package:soro_soke/ui/common/app_strings.dart';
 import 'package:soro_soke/ui/views/home/home_viewmodel.dart';
+import 'package:soro_soke/utils/app_strings.dart';
 
 import '../helpers/test_helpers.dart';
 

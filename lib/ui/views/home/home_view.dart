@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
-import 'package:soro_soke/ui/common/app_colors.dart';
-import 'package:soro_soke/ui/common/ui_helpers.dart';
-
+import '../../../utils/app_colors.dart';
+import '../../../utils/ui_helpers.dart';
 import 'home_viewmodel.dart';
 
 class HomeView extends StackedView<HomeViewModel> {

@@ -1,9 +1,10 @@
 import 'package:soro_soke/app/app.bottomsheets.dart';
 import 'package:soro_soke/app/app.dialogs.dart';
 import 'package:soro_soke/app/app.locator.dart';
-import 'package:soro_soke/ui/common/app_strings.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
+
+import '../../../utils/app_strings.dart';
 
 class HomeViewModel extends BaseViewModel {
   final _dialogService = locator<DialogService>();
