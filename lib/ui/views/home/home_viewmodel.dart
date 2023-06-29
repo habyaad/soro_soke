@@ -1,37 +1,22 @@
-import 'package:soro_soke/app/app.bottomsheets.dart';
-import 'package:soro_soke/app/app.dialogs.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:soro_soke/app/app.locator.dart';
+import 'package:soro_soke/services/authentication_service.dart';
+import 'package:soro_soke/services/toast_service.dart';
 import 'package:stacked/stacked.dart';
-import 'package:stacked_services/stacked_services.dart';
-
-import '../../../utils/app_strings.dart';
+import '../../../services/user_service.dart';
 
 class HomeViewModel extends BaseViewModel {
-  final _dialogService = locator<DialogService>();
-  final _bottomSheetService = locator<BottomSheetService>();
+  final _userService = locator<UserService>();
+  final _authService = locator<AuthenticationService>();
+  final _toastService = locator<ToastService>();
+  User? currentUser;
 
-  String get counterLabel => 'Counter is: $_counter';
-
-  int _counter = 0;
-
-  void incrementCounter() {
-    _counter++;
-    rebuildUi();
+  void initializeUser() async{
+    currentUser = _userService.currentUser;
   }
 
-  void showDialog() {
-    _dialogService.showCustomDialog(
-      variant: DialogType.infoAlert,
-      title: 'Stacked Rocks!',
-      description: 'Give stacked $_counter stars on Github',
-    );
-  }
-
-  void showBottomSheet() {
-    _bottomSheetService.showCustomSheet(
-      variant: BottomSheetType.notice,
-      title: ksHomeBottomSheetTitle,
-      description: ksHomeBottomSheetDescription,
-    );
+  void logOut() async {
+    await _authService.signOut();
+    _toastService.success("Signout successful, Login again to continue");
   }
 }
