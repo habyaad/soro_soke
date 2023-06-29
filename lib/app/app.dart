@@ -9,6 +9,7 @@ import 'package:soro_soke/ui/views/sign_up/sign_up_view.dart';
 import 'package:soro_soke/services/authentication_service.dart';
 import 'package:soro_soke/services/logger_service.dart';
 import 'package:soro_soke/services/toast_service.dart';
+import 'package:soro_soke/services/user_service.dart';
 // @stacked-import
 
 @StackedApp(
@@ -26,6 +27,7 @@ import 'package:soro_soke/services/toast_service.dart';
     LazySingleton(classType: AuthenticationService),
     LazySingleton(classType: LoggerService),
     LazySingleton(classType: ToastService),
+    LazySingleton(classType: UserService),
 // @stacked-service
   ],
   bottomsheets: [

@@ -6,6 +6,7 @@
 import 'dart:async' as _i6;
 import 'dart:ui' as _i7;
 
+import 'package:firebase_auth/firebase_auth.dart' as _i12;
 import 'package:flutter/material.dart' as _i5;
 import 'package:logger/logger.dart' as _i3;
 import 'package:mockito/mockito.dart' as _i1;
@@ -13,6 +14,7 @@ import 'package:soro_soke/models/api_response_model.dart' as _i2;
 import 'package:soro_soke/services/authentication_service.dart' as _i8;
 import 'package:soro_soke/services/logger_service.dart' as _i9;
 import 'package:soro_soke/services/toast_service.dart' as _i10;
+import 'package:soro_soke/services/user_service.dart' as _i11;
 import 'package:stacked_services/stacked_services.dart' as _i4;
 
 // ignore_for_file: type=lint
@@ -823,6 +825,20 @@ class MockToastService extends _i1.Mock implements _i10.ToastService {
         Invocation.method(
           #warning,
           [msg],
+        ),
+        returnValueForMissingStub: null,
+      );
+}
+
+/// A class which mocks [UserService].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockUserService extends _i1.Mock implements _i11.UserService {
+  @override
+  set currentUser(_i12.User? _currentUser) => super.noSuchMethod(
+        Invocation.setter(
+          #currentUser,
+          _currentUser,
         ),
         returnValueForMissingStub: null,
       );
