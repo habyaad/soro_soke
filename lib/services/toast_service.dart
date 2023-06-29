@@ -6,7 +6,7 @@ class ToastService {
     Fluttertoast.showToast(
         msg: msg,
         toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.CENTER,
+        gravity: ToastGravity.BOTTOM,
         timeInSecForIosWeb: 2,
         backgroundColor: color,
         textColor: Colors.white,
@@ -16,12 +16,15 @@ class ToastService {
   void error(String msg) {
     ToastService.show(msg, Colors.red);
   }
+
   void info(String msg) {
     ToastService.show(msg, Colors.blue);
   }
+
   void success(String msg) {
     ToastService.show(msg, Colors.green);
   }
+
   void warning(String msg) {
     ToastService.show(msg, Colors.orange);
   }
