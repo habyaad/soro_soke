@@ -117,7 +117,8 @@ class SignUpView extends StackedView<SignUpViewModel> {
                           Center(
                             child: GestureDetector(
                               onTap: () {
-                                Navigator.pushReplacementNamed(context, '/login-view');
+                                Navigator.pushReplacementNamed(
+                                    context, '/login-view');
                               },
                               child: const Text(
                                 "Already have an account? Sign in",
@@ -135,4 +136,12 @@ class SignUpView extends StackedView<SignUpViewModel> {
     BuildContext context,
   ) =>
       SignUpViewModel();
+
+  @override
+  void onDispose(SignUpViewModel viewModel){
+    viewModel.passwordController.dispose();
+    viewModel.emailController.dispose();
+    viewModel.usernameController.dispose();
+
+  }
 }

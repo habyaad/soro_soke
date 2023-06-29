@@ -52,8 +52,7 @@ class LoginView extends StackedView<LoginViewModel> {
                               borderRadius: BorderRadius.circular(6.0),
                             ),
                           ),
-                          validator: (value) =>
-                              Validator.validateEmail(value),
+                          validator: (value) => Validator.validateEmail(value),
                         ),
                         verticalSpaceMedium,
                         const Text(
@@ -94,7 +93,8 @@ class LoginView extends StackedView<LoginViewModel> {
                         Center(
                           child: GestureDetector(
                             onTap: () {
-                              Navigator.pushReplacementNamed(context, '/sign-up-view');
+                              Navigator.pushReplacementNamed(
+                                  context, '/sign-up-view');
                             },
                             child: const Text(
                               "Don't have an account yet? Sign up",
@@ -113,4 +113,11 @@ class LoginView extends StackedView<LoginViewModel> {
     BuildContext context,
   ) =>
       LoginViewModel();
+
+  @override
+  void onDispose(LoginViewModel viewModel){
+    viewModel.passwordController.dispose();
+    viewModel.emailController.dispose();
+
+  }
 }

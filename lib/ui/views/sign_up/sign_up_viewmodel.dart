@@ -16,17 +16,18 @@ class SignUpViewModel extends BaseViewModel {
   final _navigationService = locator<NavigationService>();
   final _toastService = locator<ToastService>();
 
-  void signUp() async{
+  void signUp() async {
     String name = usernameController.text;
     String email = emailController.text;
     String password = passwordController.text;
 
     ApiResponse response = await _authService.signUp(name, email, password);
 
-    if(response.success){
-      _toastService.success("${response.message}, login to access your account");
+    if (response.success) {
+      _toastService
+          .success("${response.message}, login to access your account");
       _navigationService.replaceWith("/login-view");
-    }else{
+    } else {
       _toastService.error(response.message);
     }
   }
