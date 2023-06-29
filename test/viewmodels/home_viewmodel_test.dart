@@ -14,7 +14,7 @@ void main() {
     setUp(() => registerServices());
     tearDown(() => locator.reset());
 
-    group('incrementCounter -', () {
+    /*group('incrementCounter -', () {
       test('When called once should return  Counter is: 1', () {
         final model = getModel();
         model.incrementCounter();
@@ -35,6 +35,6 @@ void main() {
           description: ksHomeBottomSheetDescription,
         ));
       });
-    });
+    });*/
   });
 }

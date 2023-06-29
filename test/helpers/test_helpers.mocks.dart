@@ -6,15 +6,15 @@
 import 'dart:async' as _i6;
 import 'dart:ui' as _i7;
 
-import 'package:firebase_auth/firebase_auth.dart' as _i12;
+import 'package:firebase_auth/firebase_auth.dart' as _i9;
 import 'package:flutter/material.dart' as _i5;
 import 'package:logger/logger.dart' as _i3;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:soro_soke/models/api_response_model.dart' as _i2;
 import 'package:soro_soke/services/authentication_service.dart' as _i8;
-import 'package:soro_soke/services/logger_service.dart' as _i9;
-import 'package:soro_soke/services/toast_service.dart' as _i10;
-import 'package:soro_soke/services/user_service.dart' as _i11;
+import 'package:soro_soke/services/logger_service.dart' as _i10;
+import 'package:soro_soke/services/toast_service.dart' as _i11;
+import 'package:soro_soke/services/user_service.dart' as _i12;
 import 'package:stacked_services/stacked_services.dart' as _i4;
 
 // ignore_for_file: type=lint
@@ -659,6 +659,12 @@ class MockDialogService extends _i1.Mock implements _i4.DialogService {
 class MockAuthenticationService extends _i1.Mock
     implements _i8.AuthenticationService {
   @override
+  _i6.Stream<_i9.User?> get onAuthStateChanged => (super.noSuchMethod(
+        Invocation.getter(#onAuthStateChanged),
+        returnValue: _i6.Stream<_i9.User?>.empty(),
+        returnValueForMissingStub: _i6.Stream<_i9.User?>.empty(),
+      ) as _i6.Stream<_i9.User?>);
+  @override
   _i6.Future<_i2.ApiResponse> signUp(
     String? name,
     String? email,
@@ -732,12 +738,21 @@ class MockAuthenticationService extends _i1.Mock
           ),
         )),
       ) as _i6.Future<_i2.ApiResponse>);
+  @override
+  _i6.Future<void> signOut() => (super.noSuchMethod(
+        Invocation.method(
+          #signOut,
+          [],
+        ),
+        returnValue: _i6.Future<void>.value(),
+        returnValueForMissingStub: _i6.Future<void>.value(),
+      ) as _i6.Future<void>);
 }
 
 /// A class which mocks [LoggerService].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockLoggerService extends _i1.Mock implements _i9.LoggerService {
+class MockLoggerService extends _i1.Mock implements _i10.LoggerService {
   @override
   _i3.Logger get logger => (super.noSuchMethod(
         Invocation.getter(#logger),
@@ -795,7 +810,7 @@ class MockLoggerService extends _i1.Mock implements _i9.LoggerService {
 /// A class which mocks [ToastService].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockToastService extends _i1.Mock implements _i10.ToastService {
+class MockToastService extends _i1.Mock implements _i11.ToastService {
   @override
   void error(String? msg) => super.noSuchMethod(
         Invocation.method(
@@ -833,12 +848,26 @@ class MockToastService extends _i1.Mock implements _i10.ToastService {
 /// A class which mocks [UserService].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockUserService extends _i1.Mock implements _i11.UserService {
+class MockUserService extends _i1.Mock implements _i12.UserService {
   @override
-  set currentUser(_i12.User? _currentUser) => super.noSuchMethod(
+  set currentUser(_i9.User? _currentUser) => super.noSuchMethod(
         Invocation.setter(
           #currentUser,
           _currentUser,
+        ),
+        returnValueForMissingStub: null,
+      );
+  @override
+  _i6.Stream<_i9.User?> get authStream => (super.noSuchMethod(
+        Invocation.getter(#authStream),
+        returnValue: _i6.Stream<_i9.User?>.empty(),
+        returnValueForMissingStub: _i6.Stream<_i9.User?>.empty(),
+      ) as _i6.Stream<_i9.User?>);
+  @override
+  set authStream(_i6.Stream<_i9.User?>? _authStream) => super.noSuchMethod(
+        Invocation.setter(
+          #authStream,
+          _authStream,
         ),
         returnValueForMissingStub: null,
       );
