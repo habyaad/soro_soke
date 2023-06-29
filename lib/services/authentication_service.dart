@@ -1,18 +1,26 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:soro_soke/models/api_response_model.dart';
+import 'package:stacked_services/stacked_services.dart';
 import '../app/app.locator.dart';
 import 'logger_service.dart';
 
 class AuthenticationService {
+
+  final auth = FirebaseAuth.instance;
+
   final _loggerService = locator<LoggerService>();
-  final _auth = FirebaseAuth.instance;
+  final _navigationService = locator<NavigationService>();
+
+
+  Stream<User?> get onAuthStateChanged => auth.authStateChanges();
+
 
   Future<ApiResponse> signUp(String name, String email, String password) async {
     User? user;
 
     try {
       UserCredential userCredential =
-          await _auth.createUserWithEmailAndPassword(
+          await auth.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
@@ -20,7 +28,7 @@ class AuthenticationService {
       await user!.updateDisplayName(name);
       await user.reload();
 
-      user = _auth.currentUser!;
+      user = auth.currentUser!;
 
       _loggerService.message(user.toString());
       // Signup successful, do something (e.g., navigate to home screen)
@@ -47,7 +55,7 @@ class AuthenticationService {
             data: null);
         _loggerService.error(response.message);
         return response;
-      }else {
+      } else {
         ApiResponse response = ApiResponse(
             success: false,
             message: "An unknown error has occured!",
@@ -68,12 +76,14 @@ class AuthenticationService {
   Future<ApiResponse> signIn(String email, String password) async {
     User? user;
     try {
-      UserCredential userCredential =
-          await _auth.signInWithEmailAndPassword(
+      UserCredential userCredential = await auth.signInWithEmailAndPassword(
         email: email,
         password: password,
       );
-      user = _auth.currentUser!;
+      user = userCredential.user!;
+      await user.reload();
+
+      user = auth.currentUser!;
       // Sign-in successful, do something (e.g., navigate to home screen)
       ApiResponse response = ApiResponse(
           success: true,
@@ -98,7 +108,7 @@ class AuthenticationService {
             data: user);
         _loggerService.error(response.message);
         return response;
-      }else{
+      } else {
         ApiResponse response = ApiResponse(
             success: false,
             message: "An unknown error has occured!",
@@ -108,10 +118,21 @@ class AuthenticationService {
       }
     } catch (e) {
       ApiResponse response =
-      ApiResponse(success: false, message: e.toString(), data: null);
+          ApiResponse(success: false, message: e.toString(), data: null);
       _loggerService.error(response.message);
 
       return response;
+    }
+  }
+
+  Future<void> signOut() async{
+    try{
+      await auth.signOut();
+      _navigationService.clearStackAndShow("/login-view");
+      _loggerService.message("Logout successful");
+
+    } catch(e){
+      _loggerService.error(e.toString());
     }
   }
 }
