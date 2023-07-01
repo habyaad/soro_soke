@@ -138,10 +138,9 @@ class SignUpView extends StackedView<SignUpViewModel> {
       SignUpViewModel();
 
   @override
-  void onDispose(SignUpViewModel viewModel){
+  void onDispose(SignUpViewModel viewModel) {
     viewModel.passwordController.dispose();
     viewModel.emailController.dispose();
     viewModel.usernameController.dispose();
-
   }
 }

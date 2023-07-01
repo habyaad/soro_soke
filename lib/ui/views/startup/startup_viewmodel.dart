@@ -11,7 +11,7 @@ class StartupViewModel extends BaseViewModel {
 
   Stream<User?> get authStream => _userService.authStream;
   // Place anything here that needs to happen before we get into the application
- /* Future runStartupLogic() async {
+  /* Future runStartupLogic() async {
     await Future.delayed(const Duration(seconds: 3));
 
     // This is where you can make decisions on where your app should navigate when
@@ -20,7 +20,7 @@ class StartupViewModel extends BaseViewModel {
 
   void navigateToHome() async {
     await Future.delayed(const Duration(seconds: 3));
-    _navigationService.replaceWith("/home-view");
+    _navigationService.replaceWith("/bottom-nav-view");
   }
 
   void navigateToLogin() async {
