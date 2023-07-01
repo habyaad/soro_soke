@@ -5,22 +5,18 @@ import '../app/app.locator.dart';
 import 'logger_service.dart';
 
 class AuthenticationService {
-
   final auth = FirebaseAuth.instance;
 
   final _loggerService = locator<LoggerService>();
   final _navigationService = locator<NavigationService>();
 
-
   Stream<User?> get onAuthStateChanged => auth.authStateChanges();
-
 
   Future<ApiResponse> signUp(String name, String email, String password) async {
     User? user;
 
     try {
-      UserCredential userCredential =
-          await auth.createUserWithEmailAndPassword(
+      UserCredential userCredential = await auth.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
@@ -125,13 +121,12 @@ class AuthenticationService {
     }
   }
 
-  Future<void> signOut() async{
-    try{
+  Future<void> signOut() async {
+    try {
       await auth.signOut();
       _navigationService.clearStackAndShow("/login-view");
       _loggerService.message("Logout successful");
-
-    } catch(e){
+    } catch (e) {
       _loggerService.error(e.toString());
     }
   }

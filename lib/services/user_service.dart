@@ -8,5 +8,4 @@ class UserService {
   User? get currentUser => _authService.auth.currentUser;
 
   Stream<User?> get authStream => _authService.auth.authStateChanges();
-
 }

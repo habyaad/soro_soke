@@ -1,4 +1,4 @@
-class ApiResponse{
+class ApiResponse {
   final bool success;
   final String message;
   final Object? data;
