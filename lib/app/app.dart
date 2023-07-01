@@ -10,6 +10,12 @@ import 'package:soro_soke/services/authentication_service.dart';
 import 'package:soro_soke/services/logger_service.dart';
 import 'package:soro_soke/services/toast_service.dart';
 import 'package:soro_soke/services/user_service.dart';
+import 'package:soro_soke/ui/views/bottom_nav/bottom_nav_view.dart';
+import 'package:soro_soke/ui/views/profile/profile_view.dart';
+import 'package:soro_soke/ui/views/search/search_view.dart';
+import 'package:soro_soke/ui/views/friends/friends_view.dart';
+import 'package:soro_soke/ui/views/settings/settings_view.dart';
+import 'package:soro_soke/services/database_service.dart';
 // @stacked-import
 
 @StackedApp(
@@ -18,6 +24,11 @@ import 'package:soro_soke/services/user_service.dart';
     MaterialRoute(page: StartupView),
     MaterialRoute(page: LoginView),
     MaterialRoute(page: SignUpView),
+    MaterialRoute(page: BottomNavView),
+    MaterialRoute(page: ProfileView),
+    MaterialRoute(page: SearchView),
+    MaterialRoute(page: FriendsView),
+    MaterialRoute(page: SettingsView),
 // @stacked-route
   ],
   dependencies: [
@@ -28,6 +39,7 @@ import 'package:soro_soke/services/user_service.dart';
     LazySingleton(classType: LoggerService),
     LazySingleton(classType: ToastService),
     LazySingleton(classType: UserService),
+    LazySingleton(classType: DatabaseService),
 // @stacked-service
   ],
   bottomsheets: [
