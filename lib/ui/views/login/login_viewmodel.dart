@@ -24,7 +24,7 @@ class LoginViewModel extends BaseViewModel {
 
     if (response.success) {
       _toastService.success(response.message);
-      _navigationService.replaceWith("/home-view");
+      _navigationService.replaceWith("/bottom-nav-view");
     } else {
       _toastService.error(response.message);
     }

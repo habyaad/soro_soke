@@ -115,9 +115,8 @@ class LoginView extends StackedView<LoginViewModel> {
       LoginViewModel();
 
   @override
-  void onDispose(LoginViewModel viewModel){
+  void onDispose(LoginViewModel viewModel) {
     viewModel.passwordController.dispose();
     viewModel.emailController.dispose();
-
   }
 }
