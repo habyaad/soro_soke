@@ -5,7 +5,7 @@
 ### Objectives
   #### Exploring the possibilities of Firebase backend as a service (BAAS)
     -  Authentication - Done ✅
-    -  Database - ... Loading!!!
+    -  Database(User profile management, chat feature(streams), preferences) - ... Loading!!!
     -  Push Notifications
   
   #### Using stacked architecture(MVVM) - Done ✅
