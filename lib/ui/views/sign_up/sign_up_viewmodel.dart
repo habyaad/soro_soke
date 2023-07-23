@@ -1,10 +1,15 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:soro_soke/app/app.locator.dart';
 import 'package:soro_soke/models/api_response_model.dart';
+import 'package:soro_soke/models/user_model.dart';
 import 'package:soro_soke/services/authentication_service.dart';
 import 'package:soro_soke/services/toast_service.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
+
+import '../../../services/database_service.dart';
+import '../../../services/user_service.dart';
 
 class SignUpViewModel extends BaseViewModel {
   final formKey = GlobalKey<FormState>();
@@ -13,6 +18,7 @@ class SignUpViewModel extends BaseViewModel {
   final passwordController = TextEditingController();
 
   final _authService = locator<AuthenticationService>();
+  final _userService = locator<UserService>();
   final _navigationService = locator<NavigationService>();
   final _toastService = locator<ToastService>();
 
@@ -24,6 +30,12 @@ class SignUpViewModel extends BaseViewModel {
     ApiResponse response = await _authService.signUp(name, email, password);
 
     if (response.success) {
+      User user = response.data;
+      UserModel userModelData = UserModel(
+          name: user.displayName.toString(),
+          email: user.email.toString(),
+          uid: user.uid);
+      await _userService.createUser(userModelData);
       _toastService
           .success("${response.message}, login to access your account");
       _navigationService.replaceWith("/login-view");
