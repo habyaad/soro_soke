@@ -1,42 +1,33 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class UserModel {
-  final String firstName;
-  final String lastName;
+  final String name;
   final String email;
-  final String password;
   final String uid;
-  final DateTime dateCreated;
+  final DateTime? dateCreated;
 
   UserModel({
-    required this.firstName,
-    required this.lastName,
+    required this.name,
     required this.email,
-    required this.password,
     required this.uid,
-    required this.dateCreated,
+    this.dateCreated,
   });
 
-  DateTime get currentDateTime => DateTime.now();
+  //DateTime get currentDateTime => DateTime.now();
 
   factory UserModel.fromJson(Map<String, dynamic> json) {
     return UserModel(
-        firstName: json['firstName'],
-        lastName: json['lastName'],
+        name: json['name'],
         email: json['email'],
-        password: json['password'],
         uid: json['uid'],
-        dateCreated: json['dateCreated']
-    );
+        dateCreated: json['dateCreated']);
   }
 
-  Map<String, dynamic> toJson(UserModel user) {
+  Map<String, dynamic> toJson() {
     return {
-      'firstName': user.firstName,
-      'lastName': user.lastName,
-      'email': user.email,
-      'password': user.password,
-      'uid': user.uid,
+      'name': name,
+      'email': email,
+      'uid': uid,
       'dateCreated': FieldValue.serverTimestamp()
     };
   }
