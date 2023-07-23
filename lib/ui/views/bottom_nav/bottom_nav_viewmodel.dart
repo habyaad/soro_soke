@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:soro_soke/app/app.router.dart';
 import 'package:soro_soke/ui/views/friends/friends_view.dart';
 import 'package:soro_soke/ui/views/home/home_view.dart';
 import 'package:soro_soke/ui/views/profile/profile_view.dart';
 import 'package:soro_soke/ui/views/settings/settings_view.dart';
 import 'package:stacked/stacked.dart';
+import 'package:stacked_services/stacked_services.dart';
+
+import '../../../app/app.locator.dart';
 
 class BottomNavViewModel extends BaseViewModel {
+  final _navigationService = locator<NavigationService>();
+
   List<IconData> iconList = const [
     Icons.chat,
     Icons.people,
@@ -26,5 +32,8 @@ class BottomNavViewModel extends BaseViewModel {
   void setIndex(int index) {
     _selectedIndex = index;
     rebuildUi();
+  }
+  void navigateToSearch() {
+    _navigationService.navigateToSearchView();
   }
 }
