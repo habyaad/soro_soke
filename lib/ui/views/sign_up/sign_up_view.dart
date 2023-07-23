@@ -43,7 +43,7 @@ class SignUpView extends StackedView<SignUpViewModel> {
                           TextFormField(
                             controller: viewModel.usernameController,
                             decoration: InputDecoration(
-                              labelText: 'Username',
+                              hintText: 'Username',
                               prefixIcon: const Icon(Icons.person),
                               filled: true,
                               fillColor: Colors.orange[50],
@@ -66,7 +66,7 @@ class SignUpView extends StackedView<SignUpViewModel> {
                             keyboardType: TextInputType.emailAddress,
                             decoration: InputDecoration(
                               focusColor: Colors.white,
-                              labelText: 'Email',
+                              hintText: 'Email',
                               prefixIcon: const Icon(Icons.email),
                               filled: true,
                               fillColor: Colors.orange[50],
@@ -89,7 +89,7 @@ class SignUpView extends StackedView<SignUpViewModel> {
                             obscureText: true,
                             decoration: InputDecoration(
                               focusColor: Colors.white,
-                              labelText: 'Password',
+                              hintText: 'Password',
                               prefixIcon: const Icon(Icons.lock),
                               filled: true,
                               fillColor: Colors.orange[50],

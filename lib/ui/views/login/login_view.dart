@@ -43,7 +43,7 @@ class LoginView extends StackedView<LoginViewModel> {
                           keyboardType: TextInputType.emailAddress,
                           decoration: InputDecoration(
                             focusColor: Colors.white,
-                            labelText: 'Email',
+                            hintText: 'Email',
                             prefixIcon: const Icon(Icons.email),
                             filled: true,
                             fillColor: Colors.orange[50],
@@ -65,7 +65,7 @@ class LoginView extends StackedView<LoginViewModel> {
                           obscureText: true,
                           decoration: InputDecoration(
                             focusColor: Colors.white,
-                            labelText: 'Password',
+                            hintText: 'Password',
                             prefixIcon: const Icon(Icons.lock),
                             filled: true,
                             fillColor: Colors.orange[50],
