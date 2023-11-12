@@ -22,6 +22,9 @@ class AuthenticationService {
       );
       user = userCredential.user;
       await user!.updateDisplayName(name);
+      await user.updatePhotoURL(
+          "https://firebasestorage.googleapis.com/v0/b/soro-soke-f0a15.appspot.com/o/profile_images%2Fdefault-avatar.png?alt=media&token=5a499abc-af14-4c71-9b95-fc7755a74eaa");
+
       await user.reload();
 
       user = auth.currentUser!;
@@ -54,7 +57,7 @@ class AuthenticationService {
       } else {
         ApiResponse response = ApiResponse(
             success: false,
-            message: "An unknown error has occured!",
+            message: "An unknown error has occurred!",
             data: null);
         _loggerService.error(response.message);
         return response;
