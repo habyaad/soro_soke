@@ -7,6 +7,7 @@ import 'package:soro_soke/services/logger_service.dart';
 import 'package:soro_soke/services/toast_service.dart';
 import 'package:soro_soke/services/user_service.dart';
 import 'package:soro_soke/services/database_service.dart';
+import 'package:soro_soke/services/storage_service.dart';
 // @stacked-import
 
 import 'test_helpers.mocks.dart';
@@ -20,6 +21,7 @@ import 'test_helpers.mocks.dart';
   MockSpec<ToastService>(onMissingStub: OnMissingStub.returnDefault),
   MockSpec<UserService>(onMissingStub: OnMissingStub.returnDefault),
   MockSpec<DatabaseService>(onMissingStub: OnMissingStub.returnDefault),
+  MockSpec<StorageService>(onMissingStub: OnMissingStub.returnDefault),
 // @stacked-mock-spec
 ])
 void registerServices() {
@@ -31,6 +33,7 @@ void registerServices() {
   getAndRegisterToastService();
   getAndRegisterUserService();
   getAndRegisterDatabaseService();
+  getAndRegisterStorageService();
 // @stacked-mock-register
 }
 
@@ -116,6 +119,13 @@ MockDatabaseService getAndRegisterDatabaseService() {
   _removeRegistrationIfExists<DatabaseService>();
   final service = MockDatabaseService();
   locator.registerSingleton<DatabaseService>(service);
+  return service;
+}
+
+MockStorageService getAndRegisterStorageService() {
+  _removeRegistrationIfExists<StorageService>();
+  final service = MockStorageService();
+  locator.registerSingleton<StorageService>(service);
   return service;
 }
 // @stacked-mock-create
