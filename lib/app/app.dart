@@ -16,6 +16,7 @@ import 'package:soro_soke/ui/views/search/search_view.dart';
 import 'package:soro_soke/ui/views/friends/friends_view.dart';
 import 'package:soro_soke/ui/views/settings/settings_view.dart';
 import 'package:soro_soke/services/database_service.dart';
+import 'package:soro_soke/services/storage_service.dart';
 // @stacked-import
 
 @StackedApp(
@@ -40,6 +41,7 @@ import 'package:soro_soke/services/database_service.dart';
     LazySingleton(classType: ToastService),
     LazySingleton(classType: UserService),
     LazySingleton(classType: DatabaseService),
+    LazySingleton(classType: StorageService),
 // @stacked-service
   ],
   bottomsheets: [
