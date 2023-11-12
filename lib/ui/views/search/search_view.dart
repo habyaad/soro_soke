@@ -16,6 +16,10 @@ class SearchView extends StackedView<SearchViewModel> {
     SearchViewModel viewModel,
     Widget? child,
   ) {
+    print('searchQuery');
+
+    print(viewModel.searchQuery);
+
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.white,
@@ -25,7 +29,6 @@ class SearchView extends StackedView<SearchViewModel> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               verticalSpace(40),
-
               const Text(
                 "Search for users",
                 textAlign: TextAlign.center,
@@ -34,15 +37,14 @@ class SearchView extends StackedView<SearchViewModel> {
               const Text(
                 "Find loved ones to send a message to",
                 textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 16, ),
+                style: TextStyle(
+                  fontSize: 16,
+                ),
               ),
               TextFormField(
-                decoration: const InputDecoration(hintText: "username"),
-                controller: viewModel.searchController,
-                onChanged: (val) {
-                  viewModel.updateSearchQuery(val);
-                },
-              ),
+                  decoration: const InputDecoration(hintText: "username"),
+                  //controller: viewModel.searchController,
+                  onChanged: viewModel.updateSearchQuery),
               verticalSpaceMedium,
               Expanded(
                 child: StreamBuilder<QuerySnapshot>(
@@ -54,7 +56,6 @@ class SearchView extends StackedView<SearchViewModel> {
                       );
                     } else {
                       final users = snapshot.data!.docs;
-
                       return ListView.builder(
                         itemCount: users.length,
                         itemBuilder: (context, index) {
@@ -63,6 +64,11 @@ class SearchView extends StackedView<SearchViewModel> {
                             print(user);
                           }
                           return ListTile(
+                            /* leading: CircleAvatar(
+                            radius: 30,
+                            backgroundImage:
+                            NetworkImage(user['photoURL']),
+                          ),*/
                             title: Text(user['name']),
                             subtitle: Text(user['email']),
                           );

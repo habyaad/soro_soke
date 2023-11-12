@@ -8,17 +8,19 @@ class SearchViewModel extends BaseViewModel {
   final _databaseService = locator<DatabaseService>();
   final TextEditingController searchController = TextEditingController();
 
-  String _searchQuery = "";
+  String searchQuery = "";
 
   Stream<QuerySnapshot<Map<String, dynamic>>> getResults() {
     return _databaseService.store
         .collection('users')
-        .where('name', isGreaterThanOrEqualTo: _searchQuery.toUpperCase())
+        .where('name', isGreaterThanOrEqualTo: searchQuery.toUpperCase())
         .snapshots();
   }
 
   void updateSearchQuery(String query) {
-    _searchQuery = query;
+    print(query);
+    searchQuery = query;
+    print('about to rebuild');
     rebuildUi();
   }
 }
