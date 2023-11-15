@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:soro_soke/models/user_model.dart';
@@ -41,5 +42,12 @@ class UserService {
     } catch (e) {
       print('Error changing profile photo: $e');
     }
+  }
+
+  Future<UserModel?> getUserFromID(uid) async {
+    final user = _databaseService.store.collection('users').doc(uid);
+
+    Map<String, dynamic>? here = (await user.get()).data();
+    return UserModel.fromJson(here!);
   }
 }
