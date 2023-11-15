@@ -21,11 +21,16 @@ class UserModel {
   //DateTime get currentDateTime => DateTime.now();
 
   factory UserModel.fromJson(Map<String, dynamic> json) {
+    // Convert Firestore Timestamp to DateTime
+    DateTime? dateCreated;
+    if (json['dateCreated'] is Timestamp) {
+      dateCreated = (json['dateCreated'] as Timestamp).toDate();
+    }
     return UserModel(
         name: json['name'],
         email: json['email'],
         uid: json['uid'],
-        dateCreated: json['dateCreated'],
+        dateCreated: dateCreated,
         profilePhotoUrl: json['profilePhotoUrl']);
   }
 
