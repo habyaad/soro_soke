@@ -5,9 +5,13 @@ import '../../utils/ui_helpers.dart';
 class GeneralButton extends StatelessWidget {
   final void Function() onPressed;
   final String buttonText;
+  final Color? buttonColor;
 
   const GeneralButton(
-      {super.key, required this.onPressed, required this.buttonText});
+      {super.key,
+      required this.onPressed,
+      required this.buttonText,
+      this.buttonColor});
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +19,8 @@ class GeneralButton extends StatelessWidget {
       onTap: onPressed,
       child: Ink(
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(8), color: kcPrimaryColor),
+            borderRadius: BorderRadius.circular(8),
+            color: buttonColor ?? kcPrimaryColor),
         width: screenWidth(context) - 20,
         height: 46,
         child: Center(
