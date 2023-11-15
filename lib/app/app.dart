@@ -17,6 +17,9 @@ import 'package:soro_soke/ui/views/friends/friends_view.dart';
 import 'package:soro_soke/ui/views/settings/settings_view.dart';
 import 'package:soro_soke/services/database_service.dart';
 import 'package:soro_soke/services/storage_service.dart';
+import 'package:soro_soke/ui/views/user_profile/user_profile_view.dart';
+import 'package:soro_soke/services/friend_service.dart';
+import 'package:soro_soke/ui/views/friend_requests/friend_requests_view.dart';
 // @stacked-import
 
 @StackedApp(
@@ -30,6 +33,8 @@ import 'package:soro_soke/services/storage_service.dart';
     MaterialRoute(page: SearchView),
     MaterialRoute(page: FriendsView),
     MaterialRoute(page: SettingsView),
+    MaterialRoute(page: UserProfileView),
+    MaterialRoute(page: FriendRequestsView),
 // @stacked-route
   ],
   dependencies: [
@@ -42,6 +47,7 @@ import 'package:soro_soke/services/storage_service.dart';
     LazySingleton(classType: UserService),
     LazySingleton(classType: DatabaseService),
     LazySingleton(classType: StorageService),
+    LazySingleton(classType: FriendService),
 // @stacked-service
   ],
   bottomsheets: [

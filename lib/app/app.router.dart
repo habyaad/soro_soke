@@ -5,9 +5,12 @@
 // **************************************************************************
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:flutter/material.dart' as _i11;
+import 'package:flutter/material.dart' as _i13;
 import 'package:flutter/material.dart';
+import 'package:soro_soke/models/user_model.dart' as _i14;
 import 'package:soro_soke/ui/views/bottom_nav/bottom_nav_view.dart' as _i6;
+import 'package:soro_soke/ui/views/friend_requests/friend_requests_view.dart'
+    as _i12;
 import 'package:soro_soke/ui/views/friends/friends_view.dart' as _i9;
 import 'package:soro_soke/ui/views/home/home_view.dart' as _i2;
 import 'package:soro_soke/ui/views/login/login_view.dart' as _i4;
@@ -16,8 +19,9 @@ import 'package:soro_soke/ui/views/search/search_view.dart' as _i8;
 import 'package:soro_soke/ui/views/settings/settings_view.dart' as _i10;
 import 'package:soro_soke/ui/views/sign_up/sign_up_view.dart' as _i5;
 import 'package:soro_soke/ui/views/startup/startup_view.dart' as _i3;
+import 'package:soro_soke/ui/views/user_profile/user_profile_view.dart' as _i11;
 import 'package:stacked/stacked.dart' as _i1;
-import 'package:stacked_services/stacked_services.dart' as _i12;
+import 'package:stacked_services/stacked_services.dart' as _i15;
 
 class Routes {
   static const homeView = '/home-view';
@@ -38,6 +42,10 @@ class Routes {
 
   static const settingsView = '/settings-view';
 
+  static const userProfileView = '/user-profile-view';
+
+  static const friendRequestsView = '/friend-requests-view';
+
   static const all = <String>{
     homeView,
     startupView,
@@ -48,6 +56,8 @@ class Routes {
     searchView,
     friendsView,
     settingsView,
+    userProfileView,
+    friendRequestsView,
   };
 }
 
@@ -89,60 +99,81 @@ class StackedRouter extends _i1.RouterBase {
       Routes.settingsView,
       page: _i10.SettingsView,
     ),
+    _i1.RouteDef(
+      Routes.userProfileView,
+      page: _i11.UserProfileView,
+    ),
+    _i1.RouteDef(
+      Routes.friendRequestsView,
+      page: _i12.FriendRequestsView,
+    ),
   ];
 
   final _pagesMap = <Type, _i1.StackedRouteFactory>{
     _i2.HomeView: (data) {
-      return _i11.MaterialPageRoute<dynamic>(
+      return _i13.MaterialPageRoute<dynamic>(
         builder: (context) => const _i2.HomeView(),
         settings: data,
       );
     },
     _i3.StartupView: (data) {
-      return _i11.MaterialPageRoute<dynamic>(
+      return _i13.MaterialPageRoute<dynamic>(
         builder: (context) => const _i3.StartupView(),
         settings: data,
       );
     },
     _i4.LoginView: (data) {
-      return _i11.MaterialPageRoute<dynamic>(
+      return _i13.MaterialPageRoute<dynamic>(
         builder: (context) => const _i4.LoginView(),
         settings: data,
       );
     },
     _i5.SignUpView: (data) {
-      return _i11.MaterialPageRoute<dynamic>(
+      return _i13.MaterialPageRoute<dynamic>(
         builder: (context) => const _i5.SignUpView(),
         settings: data,
       );
     },
     _i6.BottomNavView: (data) {
-      return _i11.MaterialPageRoute<dynamic>(
+      return _i13.MaterialPageRoute<dynamic>(
         builder: (context) => const _i6.BottomNavView(),
         settings: data,
       );
     },
     _i7.ProfileView: (data) {
-      return _i11.MaterialPageRoute<dynamic>(
+      return _i13.MaterialPageRoute<dynamic>(
         builder: (context) => const _i7.ProfileView(),
         settings: data,
       );
     },
     _i8.SearchView: (data) {
-      return _i11.MaterialPageRoute<dynamic>(
+      return _i13.MaterialPageRoute<dynamic>(
         builder: (context) => const _i8.SearchView(),
         settings: data,
       );
     },
     _i9.FriendsView: (data) {
-      return _i11.MaterialPageRoute<dynamic>(
+      return _i13.MaterialPageRoute<dynamic>(
         builder: (context) => const _i9.FriendsView(),
         settings: data,
       );
     },
     _i10.SettingsView: (data) {
-      return _i11.MaterialPageRoute<dynamic>(
+      return _i13.MaterialPageRoute<dynamic>(
         builder: (context) => const _i10.SettingsView(),
+        settings: data,
+      );
+    },
+    _i11.UserProfileView: (data) {
+      final args = data.getArgs<UserProfileViewArguments>(nullOk: false);
+      return _i13.MaterialPageRoute<dynamic>(
+        builder: (context) => _i11.UserProfileView(args.user, key: args.key),
+        settings: data,
+      );
+    },
+    _i12.FriendRequestsView: (data) {
+      return _i13.MaterialPageRoute<dynamic>(
+        builder: (context) => const _i12.FriendRequestsView(),
         settings: data,
       );
     },
@@ -154,7 +185,34 @@ class StackedRouter extends _i1.RouterBase {
   Map<Type, _i1.StackedRouteFactory> get pagesMap => _pagesMap;
 }
 
-extension NavigatorStateExtension on _i12.NavigationService {
+class UserProfileViewArguments {
+  const UserProfileViewArguments({
+    required this.user,
+    this.key,
+  });
+
+  final _i14.UserModel user;
+
+  final _i13.Key? key;
+
+  @override
+  String toString() {
+    return '{"user": "$user", "key": "$key"}';
+  }
+
+  @override
+  bool operator ==(covariant UserProfileViewArguments other) {
+    if (identical(this, other)) return true;
+    return other.user == user && other.key == key;
+  }
+
+  @override
+  int get hashCode {
+    return user.hashCode ^ key.hashCode;
+  }
+}
+
+extension NavigatorStateExtension on _i15.NavigationService {
   Future<dynamic> navigateToHomeView([
     int? routerId,
     bool preventDuplicates = true,
@@ -281,6 +339,37 @@ extension NavigatorStateExtension on _i12.NavigationService {
         transition: transition);
   }
 
+  Future<dynamic> navigateToUserProfileView({
+    required _i14.UserModel user,
+    _i13.Key? key,
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  }) async {
+    return navigateTo<dynamic>(Routes.userProfileView,
+        arguments: UserProfileViewArguments(user: user, key: key),
+        id: routerId,
+        preventDuplicates: preventDuplicates,
+        parameters: parameters,
+        transition: transition);
+  }
+
+  Future<dynamic> navigateToFriendRequestsView([
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  ]) async {
+    return navigateTo<dynamic>(Routes.friendRequestsView,
+        id: routerId,
+        preventDuplicates: preventDuplicates,
+        parameters: parameters,
+        transition: transition);
+  }
+
   Future<dynamic> replaceWithHomeView([
     int? routerId,
     bool preventDuplicates = true,
@@ -401,6 +490,37 @@ extension NavigatorStateExtension on _i12.NavigationService {
         transition,
   ]) async {
     return replaceWith<dynamic>(Routes.settingsView,
+        id: routerId,
+        preventDuplicates: preventDuplicates,
+        parameters: parameters,
+        transition: transition);
+  }
+
+  Future<dynamic> replaceWithUserProfileView({
+    required _i14.UserModel user,
+    _i13.Key? key,
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  }) async {
+    return replaceWith<dynamic>(Routes.userProfileView,
+        arguments: UserProfileViewArguments(user: user, key: key),
+        id: routerId,
+        preventDuplicates: preventDuplicates,
+        parameters: parameters,
+        transition: transition);
+  }
+
+  Future<dynamic> replaceWithFriendRequestsView([
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  ]) async {
+    return replaceWith<dynamic>(Routes.friendRequestsView,
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
