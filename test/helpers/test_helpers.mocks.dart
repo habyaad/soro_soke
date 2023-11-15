@@ -17,6 +17,7 @@ import 'package:soro_soke/models/api_response_model.dart' as _i3;
 import 'package:soro_soke/models/user_model.dart' as _i15;
 import 'package:soro_soke/services/authentication_service.dart' as _i11;
 import 'package:soro_soke/services/database_service.dart' as _i16;
+import 'package:soro_soke/services/friend_service.dart' as _i19;
 import 'package:soro_soke/services/logger_service.dart' as _i12;
 import 'package:soro_soke/services/storage_service.dart' as _i17;
 import 'package:soro_soke/services/toast_service.dart' as _i13;
@@ -923,6 +924,15 @@ class MockUserService extends _i1.Mock implements _i14.UserService {
         returnValue: _i9.Future<void>.value(),
         returnValueForMissingStub: _i9.Future<void>.value(),
       ) as _i9.Future<void>);
+  @override
+  _i9.Future<_i15.UserModel?> getUserFromID(dynamic uid) => (super.noSuchMethod(
+        Invocation.method(
+          #getUserFromID,
+          [uid],
+        ),
+        returnValue: _i9.Future<_i15.UserModel?>.value(),
+        returnValueForMissingStub: _i9.Future<_i15.UserModel?>.value(),
+      ) as _i9.Future<_i15.UserModel?>);
 }
 
 /// A class which mocks [DatabaseService].
@@ -978,4 +988,88 @@ class MockStorageService extends _i1.Mock implements _i17.StorageService {
         returnValue: _i9.Future<String>.value(''),
         returnValueForMissingStub: _i9.Future<String>.value(''),
       ) as _i9.Future<String>);
+  @override
+  _i9.Future<String?> getDefaultImage() => (super.noSuchMethod(
+        Invocation.method(
+          #getDefaultImage,
+          [],
+        ),
+        returnValue: _i9.Future<String?>.value(),
+        returnValueForMissingStub: _i9.Future<String?>.value(),
+      ) as _i9.Future<String?>);
+}
+
+/// A class which mocks [FriendService].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockFriendService extends _i1.Mock implements _i19.FriendService {
+  @override
+  _i9.Future<_i5.QuerySnapshot<Object?>?> acceptRequest(dynamic friendID) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #acceptRequest,
+          [friendID],
+        ),
+        returnValue: _i9.Future<_i5.QuerySnapshot<Object?>?>.value(),
+        returnValueForMissingStub:
+            _i9.Future<_i5.QuerySnapshot<Object?>?>.value(),
+      ) as _i9.Future<_i5.QuerySnapshot<Object?>?>);
+  @override
+  _i9.Future<_i5.QuerySnapshot<Object?>?> removeFriend(dynamic friendID) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #removeFriend,
+          [friendID],
+        ),
+        returnValue: _i9.Future<_i5.QuerySnapshot<Object?>?>.value(),
+        returnValueForMissingStub:
+            _i9.Future<_i5.QuerySnapshot<Object?>?>.value(),
+      ) as _i9.Future<_i5.QuerySnapshot<Object?>?>);
+  @override
+  _i9.Future<_i5.QuerySnapshot<Object?>?> rejectRequest(dynamic friendID) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #rejectRequest,
+          [friendID],
+        ),
+        returnValue: _i9.Future<_i5.QuerySnapshot<Object?>?>.value(),
+        returnValueForMissingStub:
+            _i9.Future<_i5.QuerySnapshot<Object?>?>.value(),
+      ) as _i9.Future<_i5.QuerySnapshot<Object?>?>);
+  @override
+  _i9.Future<bool> sendFriendRequest(dynamic friendID) => (super.noSuchMethod(
+        Invocation.method(
+          #sendFriendRequest,
+          [friendID],
+        ),
+        returnValue: _i9.Future<bool>.value(false),
+        returnValueForMissingStub: _i9.Future<bool>.value(false),
+      ) as _i9.Future<bool>);
+  @override
+  _i9.Future<bool> hasSentRequest(dynamic friendID) => (super.noSuchMethod(
+        Invocation.method(
+          #hasSentRequest,
+          [friendID],
+        ),
+        returnValue: _i9.Future<bool>.value(false),
+        returnValueForMissingStub: _i9.Future<bool>.value(false),
+      ) as _i9.Future<bool>);
+  @override
+  _i9.Future<bool> cancelRequest(dynamic friendID) => (super.noSuchMethod(
+        Invocation.method(
+          #cancelRequest,
+          [friendID],
+        ),
+        returnValue: _i9.Future<bool>.value(false),
+        returnValueForMissingStub: _i9.Future<bool>.value(false),
+      ) as _i9.Future<bool>);
+  @override
+  _i9.Future<bool> isFriend(dynamic friendID) => (super.noSuchMethod(
+        Invocation.method(
+          #isFriend,
+          [friendID],
+        ),
+        returnValue: _i9.Future<bool>.value(false),
+        returnValueForMissingStub: _i9.Future<bool>.value(false),
+      ) as _i9.Future<bool>);
 }
