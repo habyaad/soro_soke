@@ -19,6 +19,7 @@ import 'package:soro_soke/services/authentication_service.dart' as _i11;
 import 'package:soro_soke/services/database_service.dart' as _i16;
 import 'package:soro_soke/services/friend_service.dart' as _i19;
 import 'package:soro_soke/services/logger_service.dart' as _i12;
+import 'package:soro_soke/services/message_service.dart' as _i20;
 import 'package:soro_soke/services/storage_service.dart' as _i17;
 import 'package:soro_soke/services/toast_service.dart' as _i13;
 import 'package:soro_soke/services/user_service.dart' as _i14;
@@ -1055,6 +1056,15 @@ class MockFriendService extends _i1.Mock implements _i19.FriendService {
         returnValueForMissingStub: _i9.Future<bool>.value(false),
       ) as _i9.Future<bool>);
   @override
+  _i9.Future<bool> hasReceivedRequest(dynamic friendID) => (super.noSuchMethod(
+        Invocation.method(
+          #hasReceivedRequest,
+          [friendID],
+        ),
+        returnValue: _i9.Future<bool>.value(false),
+        returnValueForMissingStub: _i9.Future<bool>.value(false),
+      ) as _i9.Future<bool>);
+  @override
   _i9.Future<bool> cancelRequest(dynamic friendID) => (super.noSuchMethod(
         Invocation.method(
           #cancelRequest,
@@ -1073,3 +1083,8 @@ class MockFriendService extends _i1.Mock implements _i19.FriendService {
         returnValueForMissingStub: _i9.Future<bool>.value(false),
       ) as _i9.Future<bool>);
 }
+
+/// A class which mocks [MessageService].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockMessageService extends _i1.Mock implements _i20.MessageService {}

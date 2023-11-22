@@ -15,6 +15,7 @@ import '../services/authentication_service.dart';
 import '../services/database_service.dart';
 import '../services/friend_service.dart';
 import '../services/logger_service.dart';
+import '../services/message_service.dart';
 import '../services/storage_service.dart';
 import '../services/toast_service.dart';
 import '../services/user_service.dart';
@@ -40,4 +41,5 @@ Future<void> setupLocator({
   locator.registerLazySingleton(() => DatabaseService());
   locator.registerLazySingleton(() => StorageService());
   locator.registerLazySingleton(() => FriendService());
+  locator.registerLazySingleton(() => MessageService());
 }

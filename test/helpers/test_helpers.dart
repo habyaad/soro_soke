@@ -9,6 +9,7 @@ import 'package:soro_soke/services/user_service.dart';
 import 'package:soro_soke/services/database_service.dart';
 import 'package:soro_soke/services/storage_service.dart';
 import 'package:soro_soke/services/friend_service.dart';
+import 'package:soro_soke/services/message_service.dart';
 // @stacked-import
 
 import 'test_helpers.mocks.dart';
@@ -24,6 +25,7 @@ import 'test_helpers.mocks.dart';
   MockSpec<DatabaseService>(onMissingStub: OnMissingStub.returnDefault),
   MockSpec<StorageService>(onMissingStub: OnMissingStub.returnDefault),
   MockSpec<FriendService>(onMissingStub: OnMissingStub.returnDefault),
+  MockSpec<MessageService>(onMissingStub: OnMissingStub.returnDefault),
 // @stacked-mock-spec
 ])
 void registerServices() {
@@ -37,6 +39,7 @@ void registerServices() {
   getAndRegisterDatabaseService();
   getAndRegisterStorageService();
   getAndRegisterFriendService();
+  getAndRegisterMessageService();
 // @stacked-mock-register
 }
 
@@ -136,6 +139,13 @@ MockFriendService getAndRegisterFriendService() {
   _removeRegistrationIfExists<FriendService>();
   final service = MockFriendService();
   locator.registerSingleton<FriendService>(service);
+  return service;
+}
+
+MockMessageService getAndRegisterMessageService() {
+  _removeRegistrationIfExists<MessageService>();
+  final service = MockMessageService();
+  locator.registerSingleton<MessageService>(service);
   return service;
 }
 // @stacked-mock-create

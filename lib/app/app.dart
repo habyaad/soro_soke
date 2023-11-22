@@ -20,6 +20,7 @@ import 'package:soro_soke/services/storage_service.dart';
 import 'package:soro_soke/ui/views/user_profile/user_profile_view.dart';
 import 'package:soro_soke/services/friend_service.dart';
 import 'package:soro_soke/ui/views/friend_requests/friend_requests_view.dart';
+import 'package:soro_soke/services/message_service.dart';
 // @stacked-import
 
 @StackedApp(
@@ -48,6 +49,7 @@ import 'package:soro_soke/ui/views/friend_requests/friend_requests_view.dart';
     LazySingleton(classType: DatabaseService),
     LazySingleton(classType: StorageService),
     LazySingleton(classType: FriendService),
+    LazySingleton(classType: MessageService),
 // @stacked-service
   ],
   bottomsheets: [
