@@ -10,8 +10,6 @@
   
   #### Using stacked architecture(MVVM) - Done ✅
   
-  #### Writing tests proper
-
 ### App Features
   #### Authentication
     -  Create Account
@@ -41,7 +39,7 @@
       -  Update profile picture from gallery
       -  Edit Self Profile - Pending............
       
-  #### Messaging feature  -  Pending................
+  #### Messaging feature  -  Done ✅
       
       
   #### Writing tests proper  -  Pending...............
