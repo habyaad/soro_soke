@@ -5,6 +5,7 @@ import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 import '../../../app/app.locator.dart';
+import '../../../models/chat_model.dart';
 import '../../../models/user_model.dart';
 import '../../../services/friend_service.dart';
 import '../../../services/user_service.dart';
@@ -15,16 +16,14 @@ class FriendRequestsViewModel extends BaseViewModel {
   final _navigationService = locator<NavigationService>();
   final _toastService = locator<ToastService>();
 
-  Future<List<UserModel>>? requests() async {
-    List<UserModel> requests = [];
-    QuerySnapshot<Object?>? result = await _friendService.getFriendRequests();
-    for (int i = 0; i < result!.docs.length; i++) {
+  Stream<QuerySnapshot<Map<String, dynamic>>>? requests() {
+    return _friendService.getFriendRequests();
+    /*for (int i = 0; i < result!.docs.length; i++) {
       QueryDocumentSnapshot<Object?> here = result.docs[i];
       UserModel? user = await _userService.getUserFromID(here.id);
       requests.add(user!);
-    }
+    }*/
 
-    return requests;
   }
 
   Future<void> acceptRequest(friendID) async {
@@ -47,7 +46,7 @@ class FriendRequestsViewModel extends BaseViewModel {
     rebuildUi();
   }
 
-  void goToUserProfile(UserModel user) {
+  void goToUserProfile(ChatModel user) {
     _navigationService.navigateToUserProfileView(user: user);
   }
 }
