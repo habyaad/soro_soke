@@ -6,12 +6,14 @@ class GeneralButton extends StatelessWidget {
   final void Function() onPressed;
   final String buttonText;
   final Color? buttonColor;
+  final Color? textColor;
 
   const GeneralButton(
       {super.key,
       required this.onPressed,
       required this.buttonText,
-      this.buttonColor});
+      this.buttonColor,
+      this.textColor});
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +28,7 @@ class GeneralButton extends StatelessWidget {
         child: Center(
             child: Text(
           buttonText,
-          style: const TextStyle(color: Colors.white, fontSize: 18),
+          style: TextStyle(color: textColor ?? Colors.white, fontSize: 18),
         )),
       ),
     );
