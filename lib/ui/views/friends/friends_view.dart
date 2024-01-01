@@ -1,9 +1,11 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer_animation/shimmer_animation.dart';
+import 'package:soro_soke/utils/app_colors.dart';
 import 'package:soro_soke/utils/ui_helpers.dart';
 import 'package:stacked/stacked.dart';
 
+import '../../../models/chat_model.dart';
 import '../../../models/user_model.dart';
 import 'friends_viewmodel.dart';
 
@@ -17,8 +19,15 @@ class FriendsView extends StackedView<FriendsViewModel> {
     Widget? child,
   ) {
     return Scaffold(
+      backgroundColor: AppColors.backgroundColor,
       appBar: AppBar(
-        title: const Text('My Friends'),
+        centerTitle: true,
+        backgroundColor: AppColors.backgroundColor,
+        title: const Text(
+          'My Friends',
+          style: TextStyle(
+              color: Colors.white, fontSize: 18, fontWeight: FontWeight.w600),
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 24.0),
@@ -27,8 +36,8 @@ class FriendsView extends StackedView<FriendsViewModel> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               verticalSpaceSmall,
-              FutureBuilder<int>(
-                  future: viewModel.requests(),
+              StreamBuilder(
+                  stream: viewModel.requests(),
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
                       return Shimmer(
@@ -63,9 +72,19 @@ class FriendsView extends StackedView<FriendsViewModel> {
                         onTap: () {
                           viewModel.goToFriendRequest();
                         },
-                        child: Text(
-                          'Friend requests(${snapshot.data!})',
-                          style: const TextStyle(fontSize: 24),
+                        child: Container(
+                          decoration: BoxDecoration(
+                              color: Colors.white10,
+                              borderRadius: BorderRadius.circular(10),
+                              border: Border.all(color: Colors.white10)),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 10, vertical: 8),
+                          width: double.infinity,
+                          child: Text(
+                            'Friend requests(${snapshot.data!.docs.length})',
+                            style: const TextStyle(
+                                fontSize: 14, color: Colors.white),
+                          ),
                         ),
                       );
                     }
@@ -74,67 +93,48 @@ class FriendsView extends StackedView<FriendsViewModel> {
               StreamBuilder(
                 stream: viewModel.getFriends(),
                 builder: (context, snapshot) {
-                  if (!snapshot.hasData) {
-                    return const Center(child: Text("No friends"));
+                  if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
+                    return const Center(
+                        child: Text(
+                      "No friends",
+                      style: TextStyle(color: Colors.white),
+                    ));
                   } else {
-                    List<Future<UserModel>> friends = snapshot.data!;
+                    List friends = snapshot.data!.docs.map((doc) {
+                      Map<String, dynamic> data = doc.data();
+                      print("data : $data");
 
-                    return ListView.builder(
+                      return data;
+                    }).toList();
+
+                    return ListView.separated(
                       shrinkWrap: true,
+                      separatorBuilder: (ctx, idx) => verticalSpace(12),
                       itemCount: friends.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        return FutureBuilder(
-                          future: friends[index],
-                          /*shrinkWrap: true,
-                          itemCount: friends.length,
-                          itemBuilder: (context, index) {
-                            return ListTile(
-                              title: Text(friends[index]),
-                              subtitle:
-                                  Text('Became Friends on: ${friends[index]}'),
-                            );
-                          },*/
-                          builder: (BuildContext context,
-                              AsyncSnapshot<dynamic> userSnapshot) {
-                            if (userSnapshot.connectionState ==
-                                ConnectionState.waiting) {
-                              return Shimmer(
-                                duration: const Duration(seconds: 4),
-                                //Default value
-                                interval: const Duration(seconds: 1),
-                                //Default value: Duration(seconds: 0)
-                                color: Colors.white,
-                                //Default value
-                                colorOpacity: 0.8,
-                                //Default value
-                                enabled: true,
-                                //Default value
-                                direction: const ShimmerDirection.fromLTRB(),
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                      color: Colors.grey.withOpacity(0.1),
-                                      borderRadius: BorderRadius.circular(8)),
-                                  width: double.infinity,
-                                  height: 40,
-                                ),
-                              ); // Show a loader while waiting for the future to resolve
-                            } else if (userSnapshot.hasError) {
-                              return Text(
-                                  'Error fetching user: ${userSnapshot.error}');
-                            } else if (!userSnapshot.hasData) {
-                              return const Text('No user data available');
-                            }
-
-                            // Once the future resolves, display the user data
-                            return ListTile(
-                              onTap: () {
-                                viewModel.goToUserProfile(userSnapshot.data!);
-                              },
-                              title: Text(userSnapshot.data!.name),
-                              subtitle: Text(userSnapshot.data!.email),
-                            );
-                            // Include more UI elements to display user details
+                      reverse: true,
+                      // Show the latest message at the bottom
+                      itemBuilder: (context, index) {
+                        return ListTile(
+                          minVerticalPadding: 12,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10)),
+                          tileColor: const Color(0xff493a5e),
+                          onTap: () {
+                            viewModel.goToUserProfile(ChatModel(
+                                name: friends[index]["name"],
+                                uid: friends[index]["id"],
+                                photoUrl: friends[index]["profilePhoto"]));
                           },
+                          leading: CircleAvatar(
+                            radius: 15,
+                            backgroundImage:
+                                NetworkImage(friends[index]["profilePhoto"]),
+                          ),
+                          title: Text(
+                            friends[index]["name"],
+                            style: const TextStyle(
+                                fontSize: 16, color: Colors.pinkAccent),
+                          ),
                         );
                       },
                     );
