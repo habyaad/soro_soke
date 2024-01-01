@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:soro_soke/app/app.router.dart';
+import 'package:soro_soke/models/chat_model.dart';
 import 'package:soro_soke/models/user_model.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 import '../../../../app/app.locator.dart';
 
 class FriendRequestTile extends StatelessWidget {
-  final UserModel user;
+  final String username;
+  final String uid;
+  final String photo;
   final VoidCallback onAccept;
   final VoidCallback onDecline;
 
@@ -14,7 +17,9 @@ class FriendRequestTile extends StatelessWidget {
     super.key,
     required this.onAccept,
     required this.onDecline,
-    required this.user,
+    required this.username,
+    required this.photo,
+    required this.uid,
   });
 
   @override
@@ -24,16 +29,17 @@ class FriendRequestTile extends StatelessWidget {
     return ListTile(
       title: GestureDetector(
         onTap: () {
-          navigationService.navigateToUserProfileView(user: user);
+          navigationService.navigateToUserProfileView(
+              user: ChatModel(name: username, uid: uid, photoUrl: photo));
         },
         child: Text(
-          "${user.name} wants to be your friend",
-          style: const TextStyle(fontSize: 18),
+          "$username wants to be your friend",
+          style: const TextStyle(fontSize: 18, color: Colors.white),
         ),
       ),
       leading: CircleAvatar(
         radius: 30,
-        backgroundImage: NetworkImage(user.profilePhotoUrl.toString()),
+        backgroundImage: NetworkImage(photo),
       ),
       trailing: Row(
         mainAxisSize: MainAxisSize.min,
