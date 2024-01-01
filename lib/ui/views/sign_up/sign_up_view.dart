@@ -5,6 +5,7 @@ import 'package:stacked/stacked.dart';
 import '../../../utils/app_colors.dart';
 import '../../../utils/ui_helpers.dart';
 import '../../../utils/validators.dart';
+import '../../common/custom_text_form_field.dart';
 import 'sign_up_viewmodel.dart';
 
 class SignUpView extends StackedView<SignUpViewModel> {
@@ -17,8 +18,8 @@ class SignUpView extends StackedView<SignUpViewModel> {
     Widget? child,
   ) {
     return Scaffold(
-        backgroundColor: Colors.white,
-        appBar: AppBar(
+        backgroundColor: AppColors.backgroundColor,
+        /*appBar: AppBar(
           title: const Text(
             "Create an account",
             style:
@@ -26,78 +27,56 @@ class SignUpView extends StackedView<SignUpViewModel> {
           ),
           elevation: 0,
           backgroundColor: Colors.white,
-        ),
+        ),*/
         body: SingleChildScrollView(
             child: Container(
+                height: screenHeight(context),
                 padding: const EdgeInsets.all(20.0),
                 child: Form(
                     key: viewModel.formKey,
                     child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           const Text(
-                            "Username",
-                            style: TextStyle(fontWeight: FontWeight.w500),
+                            "Create a new account",
+                            style: TextStyle(
+                                fontSize: 32,
+                                color: Colors.white,
+                                fontWeight: FontWeight.w700),
                           ),
-                          verticalSpaceSmall,
-                          TextFormField(
+                          verticalSpace(8),
+                          const Text(
+                            "Please enter your details",
+                            style: TextStyle(
+                                fontSize: 14,
+                                color: Colors.white,
+                                fontWeight: FontWeight.w500),
+                          ),
+                          verticalSpace(24),
+                          CustomTextFormField(
                             controller: viewModel.usernameController,
-                            decoration: InputDecoration(
-                              hintText: 'Username',
-                              prefixIcon: const Icon(Icons.person),
-                              filled: true,
-                              fillColor: Colors.orange[50],
-                              border: OutlineInputBorder(
-                                borderSide: BorderSide.none,
-                                borderRadius: BorderRadius.circular(6.0),
-                              ),
-                            ),
+                            hintText: 'Username',
+                            prefixIcon: const Icon(Icons.person),
                             validator: (value) =>
                                 Validator.validateUsername(value),
                           ),
-                          verticalSpaceMedium,
-                          const Text(
-                            "Email",
-                            style: TextStyle(fontWeight: FontWeight.w500),
-                          ),
-                          verticalSpaceSmall,
-                          TextFormField(
+                          verticalSpace(32),
+                          CustomTextFormField(
                             controller: viewModel.emailController,
-                            keyboardType: TextInputType.emailAddress,
-                            decoration: InputDecoration(
-                              focusColor: Colors.white,
-                              hintText: 'Email',
-                              prefixIcon: const Icon(Icons.email),
-                              filled: true,
-                              fillColor: Colors.orange[50],
-                              border: OutlineInputBorder(
-                                borderSide: BorderSide.none,
-                                borderRadius: BorderRadius.circular(6.0),
-                              ),
-                            ),
+                            hintText: 'Email',
+                            prefixIcon: const Icon(Icons.email),
                             validator: (value) =>
                                 Validator.validateEmail(value),
+                            keyboardType: TextInputType.emailAddress,
                           ),
-                          verticalSpaceMedium,
-                          const Text(
-                            "Password",
-                            style: TextStyle(fontWeight: FontWeight.w500),
-                          ),
+                          verticalSpace(32),
                           verticalSpaceSmall,
-                          TextFormField(
+                          CustomTextFormField(
                             controller: viewModel.passwordController,
+                            hintText: 'Password',
                             obscureText: true,
-                            decoration: InputDecoration(
-                              focusColor: Colors.white,
-                              hintText: 'Password',
-                              prefixIcon: const Icon(Icons.lock),
-                              filled: true,
-                              fillColor: Colors.orange[50],
-                              border: OutlineInputBorder(
-                                borderSide: BorderSide.none,
-                                borderRadius: BorderRadius.circular(6.0),
-                              ),
-                            ),
+                            prefixIcon: const Icon(Icons.lock),
                             validator: (value) =>
                                 Validator.validatePassword(value),
                           ),
@@ -111,6 +90,7 @@ class SignUpView extends StackedView<SignUpViewModel> {
                                 viewModel.signUp();
                               }
                             },
+                            buttonColor: AppColors.lightPrimaryColor,
                             buttonText: 'Create Account',
                           )),
                           verticalSpaceSmall,
@@ -124,7 +104,7 @@ class SignUpView extends StackedView<SignUpViewModel> {
                                 "Already have an account? Sign in",
                                 style: TextStyle(
                                     fontWeight: FontWeight.w500,
-                                    color: kcPrimaryColorDark),
+                                    color: Colors.white),
                               ),
                             ),
                           ),

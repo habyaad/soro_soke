@@ -8,6 +8,7 @@ import 'package:soro_soke/services/toast_service.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
+import '../../../app/app.dialogs.dart';
 import '../../../services/database_service.dart';
 import '../../../services/user_service.dart';
 
@@ -21,13 +22,18 @@ class SignUpViewModel extends BaseViewModel {
   final _userService = locator<UserService>();
   final _navigationService = locator<NavigationService>();
   final _toastService = locator<ToastService>();
+  final _dialogService = locator<DialogService>();
 
   void signUp() async {
     String name = usernameController.text;
     String email = emailController.text;
     String password = passwordController.text;
 
+    _dialogService.showCustomDialog(
+      variant: DialogType.loading,
+    );
     ApiResponse response = await _authService.signUp(name, email, password);
+    _dialogService.completeDialog(DialogResponse(confirmed: true));
 
     if (response.success) {
       User user = response.data;
