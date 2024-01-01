@@ -15,32 +15,22 @@ class FriendService {
 
   User? get currentUser => _authService.auth.currentUser;
 
-  Future<QuerySnapshot<Object?>>? getFriendRequests() {
+  Stream<QuerySnapshot<Map<String, dynamic>>>? getFriendRequests() {
     try {
-      final CollectionReference friendRequestCollection = _databaseService.store
-          .collection('users/${currentUser!.uid}/pending_requests');
-      final friendRequests = friendRequestCollection.get();
-      _loggerService.info("requests fetched successfully");
-      return friendRequests;
+      return _databaseService.store
+          .collection('users/${currentUser!.uid}/pending_requests')
+          .snapshots();
     } catch (e) {
       _loggerService.error(e.toString());
       return null;
     }
   }
 
-  Stream<List<String>>? getFriends() {
+  Stream<QuerySnapshot<Map<String, dynamic>>>? getFriends() {
     try {
-      List<UserModel> requests = [];
-
-      final CollectionReference friendsCollection = _databaseService.store
-          .collection('users/${currentUser!.uid}/friends');
-
-      return friendsCollection.snapshots().map((snapshot) {
-        return snapshot.docs.map((doc) {
-          _loggerService.info("friends fetched successfully");
-          return doc.id;
-        }).toList();
-      });
+      return _databaseService.store
+          .collection('users/${currentUser!.uid}/friends')
+          .snapshots();
     } catch (e) {
       _loggerService.error(e.toString());
       return null;
@@ -61,13 +51,19 @@ class FriendService {
           .store
           .collection('users/${currentUser!.uid}/pending_requests');
 
+      UserModel? friend = await _userService.getUserFromID(friendID);
       await friendsCollection.doc(friendID).set({
         'id': friendID,
+        "name": friend!.name,
+        "profilePhoto": friend.profilePhotoUrl,
         'dateBecameFriends': now,
+
         // Additional friend details you might want to store
       });
       await friendsIDCollection.doc(currentUser!.uid).set({
         'id': currentUser!.uid,
+        "name": currentUser!.displayName,
+        "profilePhoto": currentUser!.photoURL,
         'dateBecameFriends': now,
 
         // Additional friend details you might want to store
@@ -121,7 +117,8 @@ class FriendService {
 
       await friendsIDCollection.doc(currentUser!.uid).set({
         'id': currentUser!.uid,
-        // Additional friend details you might want to store
+        "name": currentUser!.displayName,
+        "profilePicture": currentUser!.photoURL,
       });
 
       _loggerService.info("request sent successfully");
