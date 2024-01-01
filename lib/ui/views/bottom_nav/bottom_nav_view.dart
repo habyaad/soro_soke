@@ -1,8 +1,7 @@
-import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:soro_soke/utils/app_colors.dart';
 import 'package:stacked/stacked.dart';
-
+import 'package:flashy_tab_bar2/flashy_tab_bar2.dart';
 import 'bottom_nav_viewmodel.dart';
 
 class BottomNavView extends StackedView<BottomNavViewModel> {
@@ -16,29 +15,25 @@ class BottomNavView extends StackedView<BottomNavViewModel> {
   ) {
     return Scaffold(
       body: viewModel.widgetView[viewModel.selectedIndex],
-      floatingActionButton: FloatingActionButton(
-        child: const Icon(Icons.search),
-        onPressed: () {
-          viewModel.navigateToSearch();
-        },
-        //params
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      bottomNavigationBar: AnimatedBottomNavigationBar(
-          activeColor: Colors.orange,
-          inactiveColor: kcMediumGrey,
-          blurEffect: true,
-          height: 64,
-          icons: viewModel.iconList,
-          activeIndex: viewModel.selectedIndex,
-          gapLocation: GapLocation.center,
-          notchSmoothness: NotchSmoothness.verySmoothEdge,
-          leftCornerRadius: 32,
-          rightCornerRadius: 32,
-          onTap: (index) {
-            viewModel.setIndex(index);
-            //setState(() => _bottomNavIndex = index
-          }),
+
+      bottomNavigationBar: FlashyTabBar(
+          selectedIndex: viewModel.selectedIndex,
+          backgroundColor: AppColors.primaryColor,
+          showElevation: true,
+          height: 65,
+          animationCurve: Curves.linear,
+          animationDuration: const Duration(milliseconds: 500),
+          onItemSelected: (index) => viewModel.setIndex(index),
+          items: List.generate(
+              viewModel.navItems.length,
+              (index) => FlashyTabBarItem(
+                    activeColor: Colors.white,
+                    icon: Icon(viewModel.navItems[index].icon),
+                    title: Text(
+                      viewModel.navItems[index].identifier,
+                      style: const TextStyle(fontWeight: FontWeight.w700),
+                    ),
+                  ))),
       //other params
     );
   }
