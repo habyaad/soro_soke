@@ -23,6 +23,11 @@ class StartupViewModel extends BaseViewModel {
     _navigationService.replaceWith("/bottom-nav-view");
   }
 
+  void navigateToOnboarding() async {
+    await Future.delayed(const Duration(seconds: 3));
+    _navigationService.replaceWithOnboardingView();
+  }
+
   void navigateToLogin() async {
     await Future.delayed(const Duration(seconds: 3));
     _navigationService.replaceWithLoginView();

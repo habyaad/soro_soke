@@ -21,36 +21,43 @@ class StartupView extends StackedView<StartupViewModel> {
           User? user = snapshot.data;
           if (user == null) {
             // User is not authenticated, show login or sign-up UI
-            viewModel.navigateToLogin();
+            viewModel.navigateToOnboarding();
           } else {
             // User is authenticated, show home or authorized UI
             viewModel.navigateToHome();
           }
         }
-        return const Scaffold(
-          body: Center(
-            child: Padding(
-              padding: EdgeInsets.all(16),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(
-                    'Soro Soke',
-                    style: TextStyle(fontSize: 40, fontWeight: FontWeight.w900),
+        return Scaffold(
+          backgroundColor: Colors.white,
+          body: Container(
+            height: screenHeight(context),
+            width: screenWidth(context),
+            padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 24),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                SizedBox(
+                    height: 300,
+                    child: Image.asset(
+                      "assets/images/logo.jpeg",
+                      fit: BoxFit.scaleDown,
+                    )),
+                const Text(
+                  'Soro Soke',
+                  style: TextStyle(
+                    fontSize: 32,
+                    fontWeight: FontWeight.w700,
                   ),
-                  Text(
-                      'Talk to your loved ones on what is lingering on your mind',
-                      style: TextStyle(fontSize: 16)),
-                  verticalSpaceMedium,
-                  SizedBox(
-                    width: 16,
-                    height: 16,
-                    child: CircularProgressIndicator(
-                      color: kcPrimaryColor,
-                    ),
-                  ),
-                ],
-              ),
+                ),
+                verticalSpace(16),
+                const Text(
+                  'Talk to your loved ones on what is lingering on your mind',
+                  style: TextStyle(fontSize: 16, color: Colors.purpleAccent),
+                  textAlign: TextAlign.center,
+                ),
+              ],
             ),
           ),
         ); // Or a loading indicator
