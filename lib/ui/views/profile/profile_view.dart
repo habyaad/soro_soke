@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:soro_soke/utils/app_colors.dart';
 import 'package:soro_soke/utils/ui_helpers.dart';
 import 'package:stacked/stacked.dart';
 
@@ -18,6 +19,7 @@ class ProfileView extends StackedView<ProfileViewModel> {
     viewModel.initializeUser();
     return SafeArea(
       child: Scaffold(
+        backgroundColor: AppColors.backgroundColor,
         body: Padding(
           padding: const EdgeInsets.all(15.0),
           child: Center(
@@ -41,23 +43,24 @@ class ProfileView extends StackedView<ProfileViewModel> {
                   style: const TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
+                    color: Colors.white
                   ),
                 ),
                 const SizedBox(height: 10),
                 Text(
                   viewModel.currentUser!.email.toString(),
-                  style: const TextStyle(fontSize: 16, color: Colors.grey),
+                  style: const TextStyle(fontSize: 16, color: Colors.grey,),
                 ),
                 const SizedBox(height: 20),
                 const ProfileDetailTile(
                   icon: Icons.phone,
                   label: 'Phone',
-                  value: '+1 123-456-7890',
+                  value: '+234 123 456 7890',
                 ),
                 const ProfileDetailTile(
                   icon: Icons.location_on,
                   label: 'Location',
-                  value: 'New York, USA',
+                  value: 'Lagos, Nigeria',
                 ),
                 const ProfileDetailTile(
                   icon: Icons.work,
@@ -70,6 +73,7 @@ class ProfileView extends StackedView<ProfileViewModel> {
                     onPressed: () {
                       viewModel.logOut();
                     },
+                    buttonColor: AppColors.lightPrimaryColor,
                     buttonText: "Sign Out")
               ],
             ),
