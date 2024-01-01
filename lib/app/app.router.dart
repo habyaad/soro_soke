@@ -5,15 +5,17 @@
 // **************************************************************************
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:flutter/material.dart' as _i13;
+import 'package:flutter/material.dart' as _i15;
 import 'package:flutter/material.dart';
-import 'package:soro_soke/models/user_model.dart' as _i14;
+import 'package:soro_soke/models/chat_model.dart' as _i16;
 import 'package:soro_soke/ui/views/bottom_nav/bottom_nav_view.dart' as _i6;
+import 'package:soro_soke/ui/views/chat/chat_view.dart' as _i13;
 import 'package:soro_soke/ui/views/friend_requests/friend_requests_view.dart'
     as _i12;
 import 'package:soro_soke/ui/views/friends/friends_view.dart' as _i9;
 import 'package:soro_soke/ui/views/home/home_view.dart' as _i2;
 import 'package:soro_soke/ui/views/login/login_view.dart' as _i4;
+import 'package:soro_soke/ui/views/onboarding/onboarding_view.dart' as _i14;
 import 'package:soro_soke/ui/views/profile/profile_view.dart' as _i7;
 import 'package:soro_soke/ui/views/search/search_view.dart' as _i8;
 import 'package:soro_soke/ui/views/settings/settings_view.dart' as _i10;
@@ -21,7 +23,7 @@ import 'package:soro_soke/ui/views/sign_up/sign_up_view.dart' as _i5;
 import 'package:soro_soke/ui/views/startup/startup_view.dart' as _i3;
 import 'package:soro_soke/ui/views/user_profile/user_profile_view.dart' as _i11;
 import 'package:stacked/stacked.dart' as _i1;
-import 'package:stacked_services/stacked_services.dart' as _i15;
+import 'package:stacked_services/stacked_services.dart' as _i17;
 
 class Routes {
   static const homeView = '/home-view';
@@ -46,6 +48,10 @@ class Routes {
 
   static const friendRequestsView = '/friend-requests-view';
 
+  static const chatView = '/chat-view';
+
+  static const onboardingView = '/onboarding-view';
+
   static const all = <String>{
     homeView,
     startupView,
@@ -58,6 +64,8 @@ class Routes {
     settingsView,
     userProfileView,
     friendRequestsView,
+    chatView,
+    onboardingView,
   };
 }
 
@@ -107,73 +115,94 @@ class StackedRouter extends _i1.RouterBase {
       Routes.friendRequestsView,
       page: _i12.FriendRequestsView,
     ),
+    _i1.RouteDef(
+      Routes.chatView,
+      page: _i13.ChatView,
+    ),
+    _i1.RouteDef(
+      Routes.onboardingView,
+      page: _i14.OnboardingView,
+    ),
   ];
 
   final _pagesMap = <Type, _i1.StackedRouteFactory>{
     _i2.HomeView: (data) {
-      return _i13.MaterialPageRoute<dynamic>(
+      return _i15.MaterialPageRoute<dynamic>(
         builder: (context) => const _i2.HomeView(),
         settings: data,
       );
     },
     _i3.StartupView: (data) {
-      return _i13.MaterialPageRoute<dynamic>(
+      return _i15.MaterialPageRoute<dynamic>(
         builder: (context) => const _i3.StartupView(),
         settings: data,
       );
     },
     _i4.LoginView: (data) {
-      return _i13.MaterialPageRoute<dynamic>(
+      return _i15.MaterialPageRoute<dynamic>(
         builder: (context) => const _i4.LoginView(),
         settings: data,
       );
     },
     _i5.SignUpView: (data) {
-      return _i13.MaterialPageRoute<dynamic>(
+      return _i15.MaterialPageRoute<dynamic>(
         builder: (context) => const _i5.SignUpView(),
         settings: data,
       );
     },
     _i6.BottomNavView: (data) {
-      return _i13.MaterialPageRoute<dynamic>(
+      return _i15.MaterialPageRoute<dynamic>(
         builder: (context) => const _i6.BottomNavView(),
         settings: data,
       );
     },
     _i7.ProfileView: (data) {
-      return _i13.MaterialPageRoute<dynamic>(
+      return _i15.MaterialPageRoute<dynamic>(
         builder: (context) => const _i7.ProfileView(),
         settings: data,
       );
     },
     _i8.SearchView: (data) {
-      return _i13.MaterialPageRoute<dynamic>(
+      return _i15.MaterialPageRoute<dynamic>(
         builder: (context) => const _i8.SearchView(),
         settings: data,
       );
     },
     _i9.FriendsView: (data) {
-      return _i13.MaterialPageRoute<dynamic>(
+      return _i15.MaterialPageRoute<dynamic>(
         builder: (context) => const _i9.FriendsView(),
         settings: data,
       );
     },
     _i10.SettingsView: (data) {
-      return _i13.MaterialPageRoute<dynamic>(
+      return _i15.MaterialPageRoute<dynamic>(
         builder: (context) => const _i10.SettingsView(),
         settings: data,
       );
     },
     _i11.UserProfileView: (data) {
       final args = data.getArgs<UserProfileViewArguments>(nullOk: false);
-      return _i13.MaterialPageRoute<dynamic>(
+      return _i15.MaterialPageRoute<dynamic>(
         builder: (context) => _i11.UserProfileView(args.user, key: args.key),
         settings: data,
       );
     },
     _i12.FriendRequestsView: (data) {
-      return _i13.MaterialPageRoute<dynamic>(
+      return _i15.MaterialPageRoute<dynamic>(
         builder: (context) => const _i12.FriendRequestsView(),
+        settings: data,
+      );
+    },
+    _i13.ChatView: (data) {
+      final args = data.getArgs<ChatViewArguments>(nullOk: false);
+      return _i15.MaterialPageRoute<dynamic>(
+        builder: (context) => _i13.ChatView(args.friend, key: args.key),
+        settings: data,
+      );
+    },
+    _i14.OnboardingView: (data) {
+      return _i15.MaterialPageRoute<dynamic>(
+        builder: (context) => const _i14.OnboardingView(),
         settings: data,
       );
     },
@@ -181,6 +210,7 @@ class StackedRouter extends _i1.RouterBase {
 
   @override
   List<_i1.RouteDef> get routes => _routes;
+
   @override
   Map<Type, _i1.StackedRouteFactory> get pagesMap => _pagesMap;
 }
@@ -191,9 +221,9 @@ class UserProfileViewArguments {
     this.key,
   });
 
-  final _i14.UserModel user;
+  final _i16.ChatModel user;
 
-  final _i13.Key? key;
+  final _i15.Key? key;
 
   @override
   String toString() {
@@ -212,7 +242,34 @@ class UserProfileViewArguments {
   }
 }
 
-extension NavigatorStateExtension on _i15.NavigationService {
+class ChatViewArguments {
+  const ChatViewArguments({
+    required this.friend,
+    this.key,
+  });
+
+  final _i16.ChatModel friend;
+
+  final _i15.Key? key;
+
+  @override
+  String toString() {
+    return '{"friend": "$friend", "key": "$key"}';
+  }
+
+  @override
+  bool operator ==(covariant ChatViewArguments other) {
+    if (identical(this, other)) return true;
+    return other.friend == friend && other.key == key;
+  }
+
+  @override
+  int get hashCode {
+    return friend.hashCode ^ key.hashCode;
+  }
+}
+
+extension NavigatorStateExtension on _i17.NavigationService {
   Future<dynamic> navigateToHomeView([
     int? routerId,
     bool preventDuplicates = true,
@@ -340,8 +397,8 @@ extension NavigatorStateExtension on _i15.NavigationService {
   }
 
   Future<dynamic> navigateToUserProfileView({
-    required _i14.UserModel user,
-    _i13.Key? key,
+    required _i16.ChatModel user,
+    _i15.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -364,6 +421,37 @@ extension NavigatorStateExtension on _i15.NavigationService {
         transition,
   ]) async {
     return navigateTo<dynamic>(Routes.friendRequestsView,
+        id: routerId,
+        preventDuplicates: preventDuplicates,
+        parameters: parameters,
+        transition: transition);
+  }
+
+  Future<dynamic> navigateToChatView({
+    required _i16.ChatModel friend,
+    _i15.Key? key,
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  }) async {
+    return navigateTo<dynamic>(Routes.chatView,
+        arguments: ChatViewArguments(friend: friend, key: key),
+        id: routerId,
+        preventDuplicates: preventDuplicates,
+        parameters: parameters,
+        transition: transition);
+  }
+
+  Future<dynamic> navigateToOnboardingView([
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  ]) async {
+    return navigateTo<dynamic>(Routes.onboardingView,
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
@@ -497,8 +585,8 @@ extension NavigatorStateExtension on _i15.NavigationService {
   }
 
   Future<dynamic> replaceWithUserProfileView({
-    required _i14.UserModel user,
-    _i13.Key? key,
+    required _i16.ChatModel user,
+    _i15.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -521,6 +609,37 @@ extension NavigatorStateExtension on _i15.NavigationService {
         transition,
   ]) async {
     return replaceWith<dynamic>(Routes.friendRequestsView,
+        id: routerId,
+        preventDuplicates: preventDuplicates,
+        parameters: parameters,
+        transition: transition);
+  }
+
+  Future<dynamic> replaceWithChatView({
+    required _i16.ChatModel friend,
+    _i15.Key? key,
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  }) async {
+    return replaceWith<dynamic>(Routes.chatView,
+        arguments: ChatViewArguments(friend: friend, key: key),
+        id: routerId,
+        preventDuplicates: preventDuplicates,
+        parameters: parameters,
+        transition: transition);
+  }
+
+  Future<dynamic> replaceWithOnboardingView([
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  ]) async {
+    return replaceWith<dynamic>(Routes.onboardingView,
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
