@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:soro_soke/utils/app_colors.dart';
 
 class ProfileDetailTile extends StatelessWidget {
   final IconData icon;
@@ -21,7 +22,7 @@ class ProfileDetailTile extends StatelessWidget {
           Icon(
             icon,
             size: 24,
-            color: Colors.blue,
+            color: AppColors.lightPrimaryColor,
           ),
           const SizedBox(width: 10),
           Column(
@@ -30,12 +31,15 @@ class ProfileDetailTile extends StatelessWidget {
               Text(
                 label,
                 style: const TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                ),
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white),
               ),
               const SizedBox(height: 5),
-              Text(value),
+              Text(
+                value,
+                style: const TextStyle(color: Colors.white60),
+              ),
             ],
           ),
         ],
