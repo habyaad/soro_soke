@@ -3,6 +3,7 @@ import 'package:stacked/stacked.dart';
 import '../../../utils/app_colors.dart';
 import '../../../utils/ui_helpers.dart';
 import '../../../utils/validators.dart';
+import '../../common/custom_text_form_field.dart';
 import '../../common/general_button.dart';
 import 'login_viewmodel.dart';
 
@@ -16,64 +17,54 @@ class LoginView extends StackedView<LoginViewModel> {
     Widget? child,
   ) {
     return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
+      backgroundColor: AppColors.backgroundColor,
+      /*appBar: AppBar(
         title: const Text(
           "Login",
           style: TextStyle(color: kcPrimaryColor, fontWeight: FontWeight.w500),
         ),
         backgroundColor: Colors.white,
         elevation: 0,
-      ),
+      ),*/
       body: SingleChildScrollView(
-          child: Container(
-              padding: const EdgeInsets.all(20.0),
-              child: Form(
-                  key: viewModel.formKey,
-                  child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
+        child: Container(
+          padding: const EdgeInsets.all(20.0),
+          height: screenHeight(context),
+          child: Form(
+            key: viewModel.formKey,
+            child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         const Text(
-                          "Email",
-                          style: TextStyle(fontWeight: FontWeight.w500),
+                          "Welcome back!",
+                          style: TextStyle(
+                              fontSize: 32,
+                              color: Colors.white,
+                              fontWeight: FontWeight.w700),
                         ),
-                        verticalSpaceSmall,
-                        TextFormField(
-                          controller: viewModel.emailController,
-                          keyboardType: TextInputType.emailAddress,
-                          decoration: InputDecoration(
-                            focusColor: Colors.white,
-                            hintText: 'Email',
-                            prefixIcon: const Icon(Icons.email),
-                            filled: true,
-                            fillColor: Colors.orange[50],
-                            border: OutlineInputBorder(
-                              borderSide: BorderSide.none,
-                              borderRadius: BorderRadius.circular(6.0),
-                            ),
-                          ),
-                          validator: (value) => Validator.validateEmail(value),
-                        ),
-                        verticalSpaceMedium,
+                        verticalSpace(8),
                         const Text(
-                          "Password",
-                          style: TextStyle(fontWeight: FontWeight.w500),
+                          "Sign in to your account",
+                          style: TextStyle(
+                              fontSize: 14,
+                              color: Colors.white,
+                              fontWeight: FontWeight.w500),
                         ),
-                        verticalSpaceSmall,
-                        TextFormField(
+                        verticalSpace(24),
+                        CustomTextFormField(
+                          controller: viewModel.emailController,
+                          hintText: 'Email',
+                          prefixIcon: const Icon(Icons.email),
+                          validator: (value) => Validator.validateEmail(value),
+                          keyboardType: TextInputType.emailAddress,
+                        ),
+                        verticalSpace(32),
+                        CustomTextFormField(
                           controller: viewModel.passwordController,
+                          hintText: 'Password',
                           obscureText: true,
-                          decoration: InputDecoration(
-                            focusColor: Colors.white,
-                            hintText: 'Password',
-                            prefixIcon: const Icon(Icons.lock),
-                            filled: true,
-                            fillColor: Colors.orange[50],
-                            border: OutlineInputBorder(
-                              borderSide: BorderSide.none,
-                              borderRadius: BorderRadius.circular(6.0),
-                            ),
-                          ),
+                          prefixIcon: const Icon(Icons.lock),
                           validator: (value) =>
                               Validator.validatePassword(value),
                         ),
@@ -88,6 +79,7 @@ class LoginView extends StackedView<LoginViewModel> {
                             }
                           },
                           buttonText: 'Login',
+                          buttonColor: AppColors.lightPrimaryColor,
                         )),
                         verticalSpaceSmall,
                         Center(
@@ -100,11 +92,14 @@ class LoginView extends StackedView<LoginViewModel> {
                               "Don't have an account yet? Sign up",
                               style: TextStyle(
                                   fontWeight: FontWeight.w500,
-                                  color: kcPrimaryColorDark),
+                                  color: Colors.white),
                             ),
                           ),
                         ),
-                      ])))),
+                      ]),
+          ),
+        ),
+      ),
     );
   }
 

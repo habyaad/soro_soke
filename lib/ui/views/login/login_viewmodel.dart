@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
+import '../../../app/app.dialogs.dart';
 import '../../../app/app.locator.dart';
 import '../../../models/api_response_model.dart';
 import '../../../services/authentication_service.dart';
@@ -15,12 +16,17 @@ class LoginViewModel extends BaseViewModel {
   final _authService = locator<AuthenticationService>();
   final _navigationService = locator<NavigationService>();
   final _toastService = locator<ToastService>();
+  final _dialogService = locator<DialogService>();
 
   void signIn() async {
     String email = emailController.text;
     String password = passwordController.text;
 
+    _dialogService.showCustomDialog(
+      variant: DialogType.loading,
+    );
     ApiResponse response = await _authService.signIn(email, password);
+    _dialogService.completeDialog(DialogResponse(confirmed: true));
 
     if (response.success) {
       _toastService.success(response.message);
