@@ -51,7 +51,7 @@ class SearchViewModel extends BaseViewModel {
     rebuildUi();
   }
 
-  void goToUserProfile(UserModel user) {
+  void goToUserProfile(user) {
     _navigationService.navigateToUserProfileView(user: user);
   }
 

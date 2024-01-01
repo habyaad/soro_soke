@@ -1,11 +1,11 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:soro_soke/ui/common/general_button.dart';
+import 'package:soro_soke/ui/common/custom_text_form_field.dart';
 import 'package:soro_soke/utils/app_colors.dart';
 import 'package:soro_soke/utils/ui_helpers.dart';
 import 'package:stacked/stacked.dart';
 
+import '../../../models/chat_model.dart';
 import '../../../models/user_model.dart';
 import 'search_viewmodel.dart';
 
@@ -32,7 +32,7 @@ class SearchView extends StackedView<SearchViewModel> {
   ) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: AppColors.backgroundColor,
         body: Container(
           padding: const EdgeInsets.only(left: 25.0, right: 25.0),
           child: Column(
@@ -42,26 +42,42 @@ class SearchView extends StackedView<SearchViewModel> {
               const Text(
                 "Search for users",
                 textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 24, color: kcPrimaryColor),
+                style: TextStyle(fontSize: 24, color: Colors.white),
               ),
+              verticalSpace(8),
               const Text(
-                "Find loved ones to send a message to",
+                "Find friends to send a message",
                 textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 16,
+                style: TextStyle(fontSize: 16, color: Colors.white),
+              ),
+              verticalSpace(24),
+              CustomTextFormField(
+                controller: viewModel.searchController,
+                hintText: "username",
+                suffix: Padding(
+                  padding: const EdgeInsets.only(right: 8.0),
+                  child: GestureDetector(
+                    onTap: () {
+                      viewModel.getResults();
+                    },
+                    child: Container(
+                      width: 30,
+                      height: 30,
+                      decoration: const BoxDecoration(
+                          color: AppColors.primaryColor,
+                          shape: BoxShape.circle),
+                      child: const Center(
+                        child: Icon(
+                          Icons.search,
+                          color: Colors.white70,
+                          size: 24,
+                        ),
+                      ),
+                    ),
+                  ),
                 ),
               ),
-              TextFormField(
-                decoration: const InputDecoration(hintText: "username"),
-                controller: viewModel.searchController,
-              ),
-              verticalSpaceLarge,
-              GeneralButton(
-                  onPressed: () {
-                    viewModel.getResults();
-                  },
-                  buttonText: "Search"),
-              verticalSpaceLarge,
+              verticalSpace(16),
               Visibility(
                 visible: viewModel.results.isNotEmpty,
                 replacement: verticalSpaceTiny,
@@ -74,18 +90,32 @@ class SearchView extends StackedView<SearchViewModel> {
                       print(user);
                     }
                     return ListTile(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10)),
+                      tileColor: const Color(0xff493a5e),
                       onTap: () {
                         if (user.uid == viewModel.currentUser!.uid) {
                           viewModel.goToProfile();
                         }
-                        viewModel.goToUserProfile(user);
+                        viewModel.goToUserProfile(ChatModel(
+                            name: user.name,
+                            uid: user.uid,
+                            photoUrl: user.profilePhotoUrl.toString()));
                       },
                       leading: CircleAvatar(
                         radius: 30,
                         backgroundImage: NetworkImage(user.profilePhotoUrl!),
                       ),
-                      title: Text(user.name),
-                      subtitle: Text(user.email),
+                      title: Text(
+                        user.name,
+                        style: const TextStyle(
+                            fontSize: 24, color: Colors.pinkAccent),
+                      ),
+                      subtitle: Text(
+                        user.email,
+                        style:
+                            const TextStyle(fontSize: 12, color: Colors.white),
+                      ),
                     );
                   },
                   separatorBuilder: (BuildContext context, int index) {
