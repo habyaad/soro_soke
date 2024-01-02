@@ -24,6 +24,7 @@ dependencies:
   flutter_onboarding_slider: ^1.0.11
   flashy_tab_bar2: ^0.0.6
   firebase_app_check: ^0.2.1+5
+  intl: ^0.19.0
 
 dev_dependencies:
   build_runner: ^2.4.5
