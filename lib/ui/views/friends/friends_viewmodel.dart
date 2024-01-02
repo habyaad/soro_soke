@@ -13,9 +13,6 @@ class FriendsViewModel extends BaseViewModel {
   final _friendService = locator<FriendService>();
   final _navigationService = locator<NavigationService>();
 
-
-  List<UserModel> friends = [];
-
   Stream<QuerySnapshot<Map<String, dynamic>>>? getFriends() {
     return _friendService.getFriends();
   }
