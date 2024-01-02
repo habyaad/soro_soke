@@ -47,7 +47,7 @@ class MessageService {
     } catch (e) {
       print('Error retrieving messages: $e');
       // Handle errors more gracefully in a production app
-      throw e;
+      rethrow;
     }
   }
 }
