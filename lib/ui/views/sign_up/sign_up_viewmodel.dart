@@ -25,8 +25,8 @@ class SignUpViewModel extends BaseViewModel {
   final _dialogService = locator<DialogService>();
 
   void signUp() async {
-    String name = usernameController.text;
-    String email = emailController.text;
+    String name = usernameController.text.toLowerCase();
+    String email = emailController.text.toLowerCase();
     String password = passwordController.text;
 
     _dialogService.showCustomDialog(
