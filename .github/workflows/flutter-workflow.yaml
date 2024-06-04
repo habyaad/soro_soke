@@ -28,23 +28,24 @@ jobs:
           # flutter-version: '3.16.8'
           # ^ If you want to use a specific version of Flutter
 
-#
-#      - name: Create env file
-#        run: cat .env | base64
-#
-#      - name: 'Copy file content'
-#        env:
-#          DATA: ${{ secrets.CONSTANTS }}
-#        run: echo $DATA > .env
-#
-#      - name: Create env file
-#        run: cat android/key.properties | base64
-#
-#      - name: 'Copy file content'
-#        env:
-#          DATA: ${{ secrets.KEY_PROPERTIES }}
-#        run: echo $DATA > android/key.properties
-#      # Fetches project dependencies from pub
+      - name: Create google service json file
+        run: cat android/app/google-services.json | base64
+
+      - name: 'Copy file content'
+        env:
+          DATA: ${{ secrets.GOOGLE_SERVICES_JSON }}
+        run: echo $DATA > android/app/google-services.json
+
+
+      - name: Create google service json file
+        run: cat lib/firebase_options.dart | base64
+
+      - name: 'Copy file content'
+        env:
+          DATA: ${{ secrets.FIREBASE_OPTION }}
+        run: echo $DATA > lib/firebase_options.dart
+
+      # Fetches project dependencies from pub
       - name: Install dependencies
         run: flutter pub get
 
