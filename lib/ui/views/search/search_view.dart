@@ -30,10 +30,10 @@ class SearchView extends StackedView<SearchViewModel> {
     SearchViewModel viewModel,
     Widget? child,
   ) {
-    return SafeArea(
-      child: Scaffold(
-        backgroundColor: AppColors.backgroundColor,
-        body: Container(
+    return Scaffold(
+      backgroundColor: AppColors.backgroundColor,
+      body: SafeArea(
+        child: Container(
           padding: const EdgeInsets.only(left: 25.0, right: 25.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,

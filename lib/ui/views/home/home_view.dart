@@ -17,10 +17,10 @@ class HomeView extends StackedView<HomeViewModel> {
   ) {
     viewModel.initializeUser();
 
-    return SafeArea(
-      child: Scaffold(
-        backgroundColor: AppColors.backgroundColor,
-        body: SingleChildScrollView(
+    return Scaffold(
+      backgroundColor: AppColors.backgroundColor,
+      body: SafeArea(
+        child: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(15.0),
             child: Center(
@@ -33,29 +33,29 @@ class HomeView extends StackedView<HomeViewModel> {
                       Text(
                         'Hello, ${viewModel.currentUser!.displayName}!',
                         style: const TextStyle(
-                          fontSize: 24,
-                          fontWeight: FontWeight.w900,
-                          color: Colors.white
-                        ),
+                            fontSize: 24,
+                            fontWeight: FontWeight.w900,
+                            color: Colors.white),
                       ),
                       verticalSpace(24),
                       StreamBuilder(
                         stream: viewModel.getFriends(),
                         builder: (context, snapshot) {
-                          if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
+                          if (!snapshot.hasData ||
+                              snapshot.data!.docs.isEmpty) {
                             return const Center(
                                 child: Text(
-                                  "No chats, add friends to start chatting",
-                                  style: TextStyle(color: Colors.white),
-                                ));
+                              "No chats, add friends to start chatting",
+                              style: TextStyle(color: Colors.white),
+                            ));
                           } else {
                             List friends = snapshot.data!.docs.map((doc) {
                               Map<String, dynamic> data = doc.data();
                               print("data : $data");
-          
+
                               return data;
                             }).toList();
-          
+
                             return ListView.separated(
                               shrinkWrap: true,
                               separatorBuilder: (ctx, idx) => verticalSpace(12),
@@ -73,19 +73,21 @@ class HomeView extends StackedView<HomeViewModel> {
                                     viewModel.goToChat(ChatModel(
                                         name: friends[index]["name"],
                                         uid: friends[index]["id"],
-                                        photoUrl: friends[index]["profilePhoto"]));
+                                        photoUrl: friends[index]
+                                            ["profilePhoto"]));
                                   },
                                   leading: CircleAvatar(
                                     radius: 20,
-                                    backgroundImage:
-                                    NetworkImage(friends[index]["profilePhoto"]),
+                                    backgroundImage: NetworkImage(
+                                        friends[index]["profilePhoto"]),
                                   ),
                                   title: Text(
                                     friends[index]["name"],
                                     style: const TextStyle(
                                         fontSize: 18, color: Colors.pinkAccent),
                                   ),
-                                  subtitle: const Text("Tap to chat 💬",
+                                  subtitle: const Text(
+                                    "Tap to chat 💬",
                                     style: TextStyle(
                                         fontSize: 12, color: Colors.white70),
                                   ),
@@ -95,7 +97,6 @@ class HomeView extends StackedView<HomeViewModel> {
                           }
                         },
                       ),
-          
                     ],
                   ),
                 ],
