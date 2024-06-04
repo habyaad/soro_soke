@@ -16,10 +16,10 @@ class LoadingDialog extends StackedView<LoadingDialogModel> {
 
   @override
   Widget builder(
-      BuildContext context,
-      LoadingDialogModel viewModel,
-      Widget? child,
-      ) {
+    BuildContext context,
+    LoadingDialogModel viewModel,
+    Widget? child,
+  ) {
     return Dialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       backgroundColor: AppColors.backgroundColor,

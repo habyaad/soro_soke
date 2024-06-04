@@ -19,7 +19,7 @@ class LoginViewModel extends BaseViewModel {
   final _dialogService = locator<DialogService>();
 
   void signIn() async {
-    String email = emailController.text;
+    String email = emailController.text.toLowerCase();
     String password = passwordController.text;
 
     _dialogService.showCustomDialog(

@@ -71,7 +71,9 @@ class StartupView extends StackedView<StartupViewModel> {
                               shape: BoxShape.circle,
                               image: DecorationImage(
                                   image: AssetImage(
-                                      "assets/images/fabio-lucas-aTpGSPfalzY-unsplash.jpeg",), fit: BoxFit.cover)),
+                                    "assets/images/fabio-lucas-aTpGSPfalzY-unsplash.jpeg",
+                                  ),
+                                  fit: BoxFit.cover)),
 
                           //child: ,
                         ),

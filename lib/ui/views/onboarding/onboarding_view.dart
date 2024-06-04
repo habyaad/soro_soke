@@ -31,9 +31,9 @@ class OnboardingView extends StackedView<OnboardingViewModel> {
             viewModel.navigateToRegister();
           },
           skipTextButton: const Text('Skip',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500)),
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600)),
           trailing: const Text('Login',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500)),
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600)),
           background: const [
             SizedBox(),
             SizedBox(),
