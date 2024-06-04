@@ -4,6 +4,9 @@ class CustomTextFormField extends StatelessWidget {
   final TextEditingController controller;
   final TextInputType? keyboardType;
   final String? hintText;
+  final int? minLines;
+  final int? maxLines;
+  final int? maxLength;
   final String? Function(String?)? validator;
   final Icon? prefixIcon;
   final bool? obscureText;
@@ -17,7 +20,7 @@ class CustomTextFormField extends StatelessWidget {
     this.validator,
     this.prefixIcon,
     this.obscureText,
-    this.suffix,
+    this.suffix, this.minLines, this.maxLines, this.maxLength,
   });
 
   @override
@@ -25,6 +28,9 @@ class CustomTextFormField extends StatelessWidget {
     return TextFormField(
       controller: controller,
       obscureText: obscureText ?? false,
+      minLines: minLines,
+      maxLines: maxLines,
+      maxLength: maxLength,
       keyboardType: keyboardType,
       decoration: InputDecoration(
         //focusColor: Colors.white,
@@ -37,6 +43,7 @@ class CustomTextFormField extends StatelessWidget {
           borderSide: BorderSide.none,
           borderRadius: BorderRadius.circular(6.0),
         ),
+        counterStyle: const TextStyle(color: Colors.white60)
       ),
       validator: validator,
     );
