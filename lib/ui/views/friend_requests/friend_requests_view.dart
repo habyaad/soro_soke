@@ -6,7 +6,7 @@ import '../../../utils/ui_helpers.dart';
 import 'friend_requests_viewmodel.dart';
 
 class FriendRequestsView extends StackedView<FriendRequestsViewModel> {
-  const FriendRequestsView({Key? key}) : super(key: key);
+  const FriendRequestsView({super.key});
 
   @override
   Widget builder(

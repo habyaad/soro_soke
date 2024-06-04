@@ -1,7 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:soro_soke/app/app.router.dart';
-import 'package:soro_soke/models/user_model.dart';
-import 'package:soro_soke/services/user_service.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 

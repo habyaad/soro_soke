@@ -15,7 +15,7 @@ import 'user_profile_viewmodel.dart';
 class UserProfileView extends StackedView<UserProfileViewModel> {
   final ChatModel user;
 
-  const UserProfileView(this.user, {Key? key}) : super(key: key);
+  const UserProfileView(this.user, {super.key});
 
   @override
   Widget builder(

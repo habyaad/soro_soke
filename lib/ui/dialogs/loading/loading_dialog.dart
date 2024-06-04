@@ -9,10 +9,10 @@ class LoadingDialog extends StackedView<LoadingDialogModel> {
   final Function(DialogResponse) completer;
 
   const LoadingDialog({
-    Key? key,
+    super.key,
     required this.request,
     required this.completer,
-  }) : super(key: key);
+  });
 
   @override
   Widget builder(

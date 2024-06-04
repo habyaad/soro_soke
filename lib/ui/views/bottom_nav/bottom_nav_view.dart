@@ -5,7 +5,7 @@ import 'package:flashy_tab_bar2/flashy_tab_bar2.dart';
 import 'bottom_nav_viewmodel.dart';
 
 class BottomNavView extends StackedView<BottomNavViewModel> {
-  const BottomNavView({Key? key}) : super(key: key);
+  const BottomNavView({super.key});
 
   @override
   Widget builder(

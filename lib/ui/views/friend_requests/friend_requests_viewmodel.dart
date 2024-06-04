@@ -7,7 +7,6 @@ import 'package:stacked_services/stacked_services.dart';
 import '../../../app/app.locator.dart';
 import '../../../models/chat_model.dart';
 import '../../../services/friend_service.dart';
-import '../../../services/user_service.dart';
 
 class FriendRequestsViewModel extends BaseViewModel {
   final _friendService = locator<FriendService>();

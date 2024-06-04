@@ -20,7 +20,10 @@ class CustomTextFormField extends StatelessWidget {
     this.validator,
     this.prefixIcon,
     this.obscureText,
-    this.suffix, this.minLines, this.maxLines, this.maxLength,
+    this.suffix,
+    this.minLines,
+    this.maxLines,
+    this.maxLength,
   });
 
   @override
@@ -33,18 +36,17 @@ class CustomTextFormField extends StatelessWidget {
       maxLength: maxLength,
       keyboardType: keyboardType,
       decoration: InputDecoration(
-        //focusColor: Colors.white,
-        suffixIcon: suffix,
-        hintText: hintText,
-        prefixIcon: prefixIcon,
-        filled: true,
-        fillColor: Colors.purple[50],
-        border: OutlineInputBorder(
-          borderSide: BorderSide.none,
-          borderRadius: BorderRadius.circular(6.0),
-        ),
-        counterStyle: const TextStyle(color: Colors.white60)
-      ),
+          //focusColor: Colors.white,
+          suffixIcon: suffix,
+          hintText: hintText,
+          prefixIcon: prefixIcon,
+          filled: true,
+          fillColor: Colors.purple[50],
+          border: OutlineInputBorder(
+            borderSide: BorderSide.none,
+            borderRadius: BorderRadius.circular(6.0),
+          ),
+          counterStyle: const TextStyle(color: Colors.white60)),
       validator: validator,
     );
   }

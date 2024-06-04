@@ -2,8 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:soro_soke/app/app.locator.dart';
 import 'package:soro_soke/app/app.router.dart';
-import 'package:soro_soke/services/authentication_service.dart';
-import 'package:soro_soke/services/toast_service.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 import '../../../models/chat_model.dart';
