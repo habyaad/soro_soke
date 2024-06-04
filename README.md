@@ -44,3 +44,11 @@
   #### Writing tests proper  -  Pending...............
 
 ## We meuve! 🚀
+
+### App Preview
+
+<img width="334" alt="Screen Shot 2024-06-04 at 13 13 44" src="https://github.com/habyaad/soro_soke/assets/66385365/4650e403-8246-4b80-82af-529045c63516">
+
+<img width="344" alt="Screen Shot 2024-06-04 at 13 13 12" src="https://github.com/habyaad/soro_soke/assets/66385365/d6bab501-6cde-4b36-9044-ccb44e278751">
+
+
