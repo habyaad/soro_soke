@@ -6,19 +6,18 @@
   #### Exploring the possibilities of Firebase backend as a service (BAAS)
     -  Authentication - Done ✅
     -  Database(User profile management, chat feature(streams), preferences) - ... Loading!!!
-    -  Push Notifications
+    -  Push Notifications - ... Loading!!!
   
   #### Using stacked architecture(MVVM) - Done ✅
   
 ### App Features
-  #### Authentication
+  #### Authentication  - Done ✅
     -  Create Account
     -  Login
     -  Logout
-    -  Delete Account - Pending..........
 
 
-  #### Search feature
+  #### Search feature  - Done ✅
     -  Find different users of the app, username needed
   
   #### Friends feature  -  Done ✅
@@ -34,10 +33,10 @@
       -  Pending to
       -  not friends
       
-  #### Profile feature
+  #### Profile feature - Done ✅
       -  View Other user profile
       -  Update profile picture from gallery
-      -  Edit Self Profile - Pending............
+      -  Edit Self Profile
       
   #### Messaging feature  -  Done ✅
       
