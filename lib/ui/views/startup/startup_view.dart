@@ -28,8 +28,13 @@ class StartupView extends StackedView<StartupViewModel> {
           }
         }
         return Scaffold(
-          backgroundColor: Colors.white,
+          backgroundColor: const Color(0xFF181827),
           body: Container(
+            // decoration: const BoxDecoration(
+            //     gradient: LinearGradient(colors: [
+            //   Color(0xFF181827),
+            //   Color(0xFF49243E),
+            // ], begin: Alignment.topCenter, end: Alignment.bottomCenter)),
             height: screenHeight(context),
             width: screenWidth(context),
             padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 24),
@@ -38,23 +43,55 @@ class StartupView extends StackedView<StartupViewModel> {
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                SizedBox(
-                    height: 300,
-                    child: Image.asset(
-                      "assets/images/logo.jpeg",
-                      fit: BoxFit.scaleDown,
-                    )),
-                const Text(
-                  'Soro Soke',
-                  style: TextStyle(
-                    fontSize: 32,
-                    fontWeight: FontWeight.w700,
+                // SizedBox(
+                //     height: 300,
+                //     child: Image.asset(
+                //       "assets/images/logo.jpeg",
+                //       fit: BoxFit.scaleDown,
+                //     )),
+                Container(
+                  width: 250,
+                  height: 250,
+                  decoration: const BoxDecoration(
+                      color: Color(0xFF1E1E2C), shape: BoxShape.circle),
+                  child: Align(
+                    alignment: Alignment.center,
+                    child: Container(
+                      width: 225,
+                      height: 225,
+                      decoration: const BoxDecoration(
+                          color: Color(0xFF2B2B3A), shape: BoxShape.circle),
+                      child: Align(
+                        alignment: Alignment.center,
+                        child: Container(
+                          width: 200,
+                          height: 200,
+                          decoration: const BoxDecoration(
+                              color: Color(0xFF3B3B4B),
+                              shape: BoxShape.circle,
+                              image: DecorationImage(
+                                  image: AssetImage(
+                                      "assets/images/fabio-lucas-aTpGSPfalzY-unsplash.jpeg",), fit: BoxFit.cover)),
+
+                          //child: ,
+                        ),
+                      ),
+                    ),
                   ),
                 ),
                 verticalSpace(16),
                 const Text(
+                  'Soro Soke',
+                  style: TextStyle(
+                    fontSize: 32,
+                    color: Colors.white,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+                verticalSpace(8),
+                const Text(
                   'Talk to your loved ones on what is lingering on your mind',
-                  style: TextStyle(fontSize: 16, color: Colors.purpleAccent),
+                  style: TextStyle(fontSize: 16, color: Colors.white),
                   textAlign: TextAlign.center,
                 ),
               ],
