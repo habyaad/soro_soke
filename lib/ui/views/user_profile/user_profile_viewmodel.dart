@@ -89,7 +89,7 @@ class UserProfileViewModel extends BaseViewModel {
     _navigationService.replaceWithChatView(friend: user);
   }
 
-  Future<UserModel?> getUser(uid){
+  Future<UserModel?> getUser(uid) {
     return _userService.getUserFromID(uid);
   }
 }

@@ -66,5 +66,4 @@ class NavItem {
     identifier: "Profile",
     icon: Icons.person,
   );
-
 }
