@@ -21,4 +21,22 @@ class DatabaseService {
         .catchError(
             (error) => _loggerService.error("Failed to add user: $error"));
   }
+
+  Future<void> saveProfile(String id, Map<String, String> profileData) {
+    final CollectionReference usersCollection = store.collection('users');
+
+    return usersCollection
+        .doc(id)
+        .set(profileData)
+        .then((value) => _loggerService.info("Profile Edited"))
+        .catchError((error) =>
+            _loggerService.error("Failed to edit user profile: $error"));
+  }
+
+  Future<DocumentSnapshot> fetchProfile(String id) {
+    print("got here");
+    final CollectionReference usersCollection = store.collection('users');
+    print(usersCollection.doc(id).get());
+    return usersCollection.doc(id).get();
+  }
 }
