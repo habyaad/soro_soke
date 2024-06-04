@@ -69,5 +69,6 @@ flutter {
 dependencies {
     implementation 'com.google.android.gms:play-services-base:18.5.0'
     implementation 'com.google.android.gms:play-services-basement:18.4.0'
+    implementation("com.google.firebase:firebase-appcheck")
     implementation 'com.android.support:multidex:2.0.1' //enter the latest multidex version
 }
