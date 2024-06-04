@@ -63,6 +63,7 @@ class LoginView extends StackedView<LoginViewModel> {
                   CustomTextFormField(
                     controller: viewModel.passwordController,
                     hintText: 'Password',
+                    maxLines: 1,
                     obscureText: true,
                     prefixIcon: const Icon(Icons.lock),
                     validator: (value) => Validator.validatePassword(value),

@@ -76,6 +76,7 @@ class SignUpView extends StackedView<SignUpViewModel> {
                             controller: viewModel.passwordController,
                             hintText: 'Password',
                             obscureText: true,
+                            maxLines: 1,
                             prefixIcon: const Icon(Icons.lock),
                             validator: (value) =>
                                 Validator.validatePassword(value),
