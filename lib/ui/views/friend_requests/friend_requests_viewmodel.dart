@@ -16,7 +16,6 @@ class FriendRequestsViewModel extends BaseViewModel {
 
   Stream<QuerySnapshot<Map<String, dynamic>>>? requests() {
     return _friendService.getFriendRequests();
-
   }
 
   Future<void> acceptRequest(friendID) async {
