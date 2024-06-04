@@ -5,7 +5,7 @@ import 'package:flutter_onboarding_slider/flutter_onboarding_slider.dart';
 import 'onboarding_viewmodel.dart';
 
 class OnboardingView extends StackedView<OnboardingViewModel> {
-  const OnboardingView({Key? key}) : super(key: key);
+  const OnboardingView({super.key});
 
   @override
   Widget builder(

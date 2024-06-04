@@ -4,7 +4,6 @@ import 'package:soro_soke/ui/views/friends/friends_view.dart';
 import 'package:soro_soke/ui/views/home/home_view.dart';
 import 'package:soro_soke/ui/views/profile/profile_view.dart';
 import 'package:soro_soke/ui/views/search/search_view.dart';
-import 'package:soro_soke/ui/views/settings/settings_view.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 

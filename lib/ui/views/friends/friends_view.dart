@@ -6,11 +6,10 @@ import 'package:soro_soke/utils/ui_helpers.dart';
 import 'package:stacked/stacked.dart';
 
 import '../../../models/chat_model.dart';
-import '../../../models/user_model.dart';
 import 'friends_viewmodel.dart';
 
 class FriendsView extends StackedView<FriendsViewModel> {
-  const FriendsView({Key? key}) : super(key: key);
+  const FriendsView({super.key});
 
   @override
   Widget builder(

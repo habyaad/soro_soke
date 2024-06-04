@@ -9,7 +9,6 @@ import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 import '../../../app/app.dialogs.dart';
-import '../../../services/database_service.dart';
 import '../../../services/user_service.dart';
 
 class SignUpViewModel extends BaseViewModel {

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:soro_soke/ui/common/general_button.dart';
 import 'package:soro_soke/utils/app_colors.dart';
 import 'package:stacked/stacked.dart';
 import '../../../models/chat_model.dart';
@@ -7,7 +6,7 @@ import '../../../utils/ui_helpers.dart';
 import 'home_viewmodel.dart';
 
 class HomeView extends StackedView<HomeViewModel> {
-  const HomeView({Key? key}) : super(key: key);
+  const HomeView({super.key});
 
   @override
   Widget builder(

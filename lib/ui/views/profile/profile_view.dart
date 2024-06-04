@@ -110,7 +110,7 @@ class ProfileView extends StackedView<ProfileViewModel> {
                           ProfileDetailTile(
                             icon: Icons.phone,
                             label: 'Phone',
-                            value: data['phoneNumber']?? 'Nil',
+                            value: data['phoneNumber'] ?? 'Nil',
                           ),
                           // const ProfileDetailTile(
                           //   icon: Icons.location_on,
@@ -120,7 +120,7 @@ class ProfileView extends StackedView<ProfileViewModel> {
                           ProfileDetailTile(
                             icon: Icons.work,
                             label: 'About',
-                            value: data['about']?? 'Nil',
+                            value: data['about'] ?? 'Nil',
                           ),
                         ],
                       );

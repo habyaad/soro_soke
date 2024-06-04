@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:soro_soke/app/app.router.dart';
 import 'package:soro_soke/models/chat_model.dart';
-import 'package:soro_soke/models/user_model.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 import '../../../../app/app.locator.dart';

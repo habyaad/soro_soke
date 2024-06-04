@@ -10,7 +10,7 @@ import '../../../models/user_model.dart';
 import 'search_viewmodel.dart';
 
 class SearchView extends StackedView<SearchViewModel> {
-  const SearchView({Key? key}) : super(key: key);
+  const SearchView({super.key});
 
   @override
   void onViewModelReady(SearchViewModel viewModel) {
