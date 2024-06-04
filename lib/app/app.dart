@@ -24,6 +24,7 @@ import 'package:soro_soke/services/message_service.dart';
 import 'package:soro_soke/ui/views/chat/chat_view.dart';
 import 'package:soro_soke/ui/views/onboarding/onboarding_view.dart';
 import 'package:soro_soke/ui/dialogs/loading/loading_dialog.dart';
+import 'package:soro_soke/ui/views/edit_profile/edit_profile_view.dart';
 // @stacked-import
 
 @StackedApp(
@@ -41,6 +42,7 @@ import 'package:soro_soke/ui/dialogs/loading/loading_dialog.dart';
     MaterialRoute(page: FriendRequestsView),
     MaterialRoute(page: ChatView),
     MaterialRoute(page: OnboardingView),
+    MaterialRoute(page: EditProfileView),
 // @stacked-route
   ],
   dependencies: [
