@@ -1,5 +1,7 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
-import 'package:soro_soke/models/user_model.dart';
+import 'package:intl/intl.dart';
 import 'package:soro_soke/ui/common/custom_text_form_field.dart';
 import 'package:soro_soke/ui/views/chat/widgets/message_box.dart';
 import 'package:soro_soke/utils/app_colors.dart';
@@ -12,7 +14,7 @@ import 'chat_viewmodel.dart';
 class ChatView extends StackedView<ChatViewModel> {
   final ChatModel friend;
 
-  const ChatView(this.friend, {Key? key}) : super(key: key);
+  const ChatView(this.friend, {super.key});
 
   @override
   Widget builder(
@@ -25,6 +27,7 @@ class ChatView extends StackedView<ChatViewModel> {
         iconTheme: const IconThemeData(color: Colors.white),
         automaticallyImplyLeading: true,
         backgroundColor: AppColors.backgroundColor,
+        centerTitle: true,
         title: Text(
           friend.name,
           style: const TextStyle(
@@ -46,7 +49,7 @@ class ChatView extends StackedView<ChatViewModel> {
                 stream: viewModel.getMessagesStream(friend.uid),
                 builder: (context, snapshot) {
                   if (!snapshot.hasData) {
-                    print("no messages");
+                    log("no messages");
 
                     return const Center(
                       child: SizedBox(),
@@ -55,7 +58,7 @@ class ChatView extends StackedView<ChatViewModel> {
                   List<Message> messages = snapshot.data!.docs.map((doc) {
                     Map<String, dynamic> data =
                         doc.data() as Map<String, dynamic>;
-                    print("data : $data");
+                    log("data : $data");
 
                     return Message(
                       senderId: data['senderId'],
@@ -64,16 +67,41 @@ class ChatView extends StackedView<ChatViewModel> {
                       timestamp: data['timestamp'].toDate(),
                     );
                   }).toList();
-                  print("messages: $messages");
-                  print("got messages");
+                  log("messages: $messages");
+                  log("got messages");
                   return ListView.separated(
                     separatorBuilder: (ctx, idx) => verticalSpace(12),
                     itemCount: messages.length,
                     reverse: true, // Show the latest message at the bottom
                     itemBuilder: (context, index) {
-                      return MessageBox(
-                        message: messages[index],
-                        sender: messages[index].receiverId == friend.uid,
+                      bool checked = viewModel.dateChecked;
+
+                      viewModel.dateChecked == false
+                          ? null
+                          : viewModel.chatDate = DateFormat('MMM d', 'en_US')
+                              .format(messages[index].timestamp);
+                      viewModel.dateChecked = true;
+
+                      return Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Visibility(
+                            visible: checked == false &&
+                                viewModel.chatDate ==
+                                    DateFormat('MMM d', 'en_US')
+                                        .format(messages[index].timestamp),
+                            replacement: const SizedBox(),
+                            child: Text(
+                              DateFormat('MMM d', 'en_US')
+                                  .format(messages[index].timestamp),
+                              style: const TextStyle(color: Colors.white),
+                            ),
+                          ),
+                          MessageBox(
+                            message: messages[index],
+                            sender: messages[index].receiverId == friend.uid,
+                          ),
+                        ],
                       );
                     },
                   );
@@ -88,7 +116,6 @@ class ChatView extends StackedView<ChatViewModel> {
                 children: [
                   Expanded(
                     child: SizedBox(
-                      height: 50,
                       child: CustomTextFormField(
                         controller: viewModel.messageController,
                         hintText: 'Type your message...',
@@ -128,7 +155,6 @@ class ChatView extends StackedView<ChatViewModel> {
 
   @override
   void onViewModelReady(ChatViewModel viewModel) {
-    // TODO: implement onViewModelReady
     super.onViewModelReady(viewModel);
     viewModel.initializeUser();
   }

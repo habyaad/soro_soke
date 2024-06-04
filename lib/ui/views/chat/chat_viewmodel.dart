@@ -14,7 +14,8 @@ class ChatViewModel extends BaseViewModel {
   final TextEditingController messageController = TextEditingController();
 
   User? currentUser;
-
+  String? chatDate;
+  bool dateChecked = false;
   void initializeUser() async {
     currentUser = _userService.currentUser;
   }
