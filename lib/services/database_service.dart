@@ -27,7 +27,7 @@ class DatabaseService {
 
     return usersCollection
         .doc(id)
-        .set(profileData)
+        .set(profileData, SetOptions(merge: true))
         .then((value) => _loggerService.info("Profile Edited"))
         .catchError((error) =>
             _loggerService.error("Failed to edit user profile: $error"));
