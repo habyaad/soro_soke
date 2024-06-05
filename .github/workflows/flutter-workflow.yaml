@@ -40,12 +40,6 @@ jobs:
       #      - name: Create google service json file
       #        run: cat lib/firebase_options.dart | base64
 
-      - name: 'create firebase option file'
-        env:
-          DATA: ${{ secrets.FIREBASE_OPTION }}
-        run: echo $DATA > /home/runner/work/soro_soke/soro_soke/lib/firebase_options.dart
-
-
       # Fetches project dependencies from pub
       - name: Install dependencies
         run: flutter pub get
