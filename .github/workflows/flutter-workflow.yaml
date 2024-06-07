@@ -31,6 +31,11 @@ jobs:
       #      - name: Create google service json file
       #        run: cat android/app/google-services.json | base64
 
+      - name: 'create .env file'
+        env:
+          DATA: ${{ secrets.ENV_VARS }}
+        run: echo $DATA > /home/runner/work/soro_soke/soro_soke/.env
+
       - name: 'create google service file'
         env:
           DATA: ${{ secrets.GOOGLE_SERVICES_JSON }}
