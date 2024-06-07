@@ -26,6 +26,7 @@ class HomeViewModel extends BaseViewModel {
   void goToChat(ChatModel user) {
     _navigationService.navigateToChatView(friend: user);
   }
+
   void goToAIChat() {
     _navigationService.navigateToAiChatView();
   }

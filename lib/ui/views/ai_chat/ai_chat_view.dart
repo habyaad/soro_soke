@@ -123,12 +123,9 @@ class AiChatView extends StackedView<AiChatViewModel> {
                   ),
                   GestureDetector(
                     onTap: () {
-                      FocusScopeNode
-                      currentFocus =
-                      FocusScope.of(context);
+                      FocusScopeNode currentFocus = FocusScope.of(context);
 
-                      if (!currentFocus
-                          .hasPrimaryFocus) {
+                      if (!currentFocus.hasPrimaryFocus) {
                         currentFocus.unfocus();
                       }
                       viewModel.sendChatMessage(context);

@@ -76,7 +76,7 @@ class AiChatViewModel extends BaseViewModel {
   }
 
   Future<void> sendChatMessage(BuildContext context) async {
-    if(messageController.text.isEmpty){
+    if (messageController.text.isEmpty) {
       return;
     }
     String message = messageController.text.trim();
