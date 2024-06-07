@@ -26,76 +26,78 @@ class LoginView extends StackedView<LoginViewModel> {
         backgroundColor: Colors.white,
         elevation: 0,
       ),*/
-      body: SingleChildScrollView(
-        child: Container(
-          padding: const EdgeInsets.all(20.0),
-          height: screenHeight(context),
-          child: Form(
-            key: viewModel.formKey,
-            child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Text(
-                    "Welcome back!",
-                    style: TextStyle(
-                        fontSize: 32,
-                        color: Colors.white,
-                        fontWeight: FontWeight.w700),
-                  ),
-                  verticalSpace(8),
-                  const Text(
-                    "Sign in to your account",
-                    style: TextStyle(
-                        fontSize: 14,
-                        color: Colors.white,
-                        fontWeight: FontWeight.w500),
-                  ),
-                  verticalSpace(24),
-                  CustomTextFormField(
-                    controller: viewModel.emailController,
-                    hintText: 'Email',
-                    prefixIcon: const Icon(Icons.email),
-                    validator: (value) => Validator.validateEmail(value),
-                    keyboardType: TextInputType.emailAddress,
-                  ),
-                  verticalSpace(32),
-                  CustomTextFormField(
-                    controller: viewModel.passwordController,
-                    hintText: 'Password',
-                    maxLines: 1,
-                    obscureText: true,
-                    prefixIcon: const Icon(Icons.lock),
-                    validator: (value) => Validator.validatePassword(value),
-                  ),
-                  verticalSpaceLarge,
-                  Center(
-                      child: GeneralButton(
-                    onPressed: () {
-                      if (viewModel.formKey.currentState!.validate()) {
-                        viewModel.formKey.currentState!.save();
-                        // Do something with the validated and saved values
-                        viewModel.signIn();
-                      }
-                    },
-                    buttonText: 'Login',
-                    buttonColor: AppColors.lightPrimaryColor,
-                  )),
-                  verticalSpaceSmall,
-                  Center(
-                    child: GestureDetector(
-                      onTap: () {
-                        Navigator.pushReplacementNamed(
-                            context, '/sign-up-view');
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Container(
+            padding: const EdgeInsets.all(20.0),
+            height: screenHeight(context),
+            child: Form(
+              key: viewModel.formKey,
+              child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text(
+                      "Welcome back!",
+                      style: TextStyle(
+                          fontSize: 32,
+                          color: Colors.white,
+                          fontWeight: FontWeight.w700),
+                    ),
+                    verticalSpace(8),
+                    const Text(
+                      "Sign in to your account",
+                      style: TextStyle(
+                          fontSize: 14,
+                          color: Colors.white,
+                          fontWeight: FontWeight.w500),
+                    ),
+                    verticalSpace(24),
+                    CustomTextFormField(
+                      controller: viewModel.emailController,
+                      hintText: 'Email',
+                      prefixIcon: const Icon(Icons.email),
+                      validator: (value) => Validator.validateEmail(value),
+                      keyboardType: TextInputType.emailAddress,
+                    ),
+                    verticalSpace(32),
+                    CustomTextFormField(
+                      controller: viewModel.passwordController,
+                      hintText: 'Password',
+                      maxLines: 1,
+                      obscureText: true,
+                      prefixIcon: const Icon(Icons.lock),
+                      validator: (value) => Validator.validatePassword(value),
+                    ),
+                    verticalSpaceLarge,
+                    Center(
+                        child: GeneralButton(
+                      onPressed: () {
+                        if (viewModel.formKey.currentState!.validate()) {
+                          viewModel.formKey.currentState!.save();
+                          // Do something with the validated and saved values
+                          viewModel.signIn();
+                        }
                       },
-                      child: const Text(
-                        "Don't have an account yet? Sign up",
-                        style: TextStyle(
-                            fontWeight: FontWeight.w500, color: Colors.white),
+                      buttonText: 'Login',
+                      buttonColor: AppColors.lightPrimaryColor,
+                    )),
+                    verticalSpaceSmall,
+                    Center(
+                      child: GestureDetector(
+                        onTap: () {
+                          Navigator.pushReplacementNamed(
+                              context, '/sign-up-view');
+                        },
+                        child: const Text(
+                          "Don't have an account yet? Sign up",
+                          style: TextStyle(
+                              fontWeight: FontWeight.w500, color: Colors.white),
+                        ),
                       ),
                     ),
-                  ),
-                ]),
+                  ]),
+            ),
           ),
         ),
       ),
