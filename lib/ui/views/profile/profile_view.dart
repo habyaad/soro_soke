@@ -9,6 +9,7 @@ import 'package:stacked/stacked.dart';
 
 import '../../common/general_button.dart';
 import '../../common/profile_detail_tile.dart';
+import '../../common/string_utils.dart';
 import 'profile_viewmodel.dart';
 
 class ProfileView extends StackedView<ProfileViewModel> {
@@ -74,7 +75,8 @@ class ProfileView extends StackedView<ProfileViewModel> {
                 ),
                 const SizedBox(height: 20),
                 Text(
-                  viewModel.currentUser!.displayName.toString(),
+                  StringUtils.capitalize(
+                      viewModel.currentUser!.displayName.toString()),
                   style: const TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.bold,
