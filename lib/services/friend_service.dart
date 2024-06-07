@@ -37,6 +37,17 @@ class FriendService {
     }
   }
 
+  Stream<QuerySnapshot<Map<String, dynamic>>>? getFriendsWithMessages() {
+    try {
+      return _databaseService.store
+          .collection('users/${currentUser!.uid}/friends')
+          .snapshots();
+    } catch (e) {
+      _loggerService.error(e.toString());
+      return null;
+    }
+  }
+
   Future<QuerySnapshot<Object?>?> acceptRequest(friendID) async {
     try {
       final DateTime now = DateTime.now(); // Get current date and time
