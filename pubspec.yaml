@@ -28,6 +28,8 @@ dependencies:
   form_validator: ^2.1.1
 
   stacked_shared: any
+  flutter_dotenv: ^5.1.0
+  google_generative_ai: ^0.4.3
 dev_dependencies:
   build_runner: ^2.4.5
   flutter_test:
@@ -43,3 +45,4 @@ flutter:
     #- assets/images/
     - assets/svgs/
     - assets/images/
+    - .env
