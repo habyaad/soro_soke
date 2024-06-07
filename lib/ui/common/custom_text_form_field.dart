@@ -4,6 +4,8 @@ class CustomTextFormField extends StatelessWidget {
   final TextEditingController controller;
   final TextInputType? keyboardType;
   final String? hintText;
+  final bool? autoFocus;
+  final FocusNode? focusNode;
   final int? minLines;
   final int? maxLines;
   final int? maxLength;
@@ -23,12 +25,14 @@ class CustomTextFormField extends StatelessWidget {
     this.suffix,
     this.minLines,
     this.maxLines,
-    this.maxLength,
+    this.maxLength, this.autoFocus, this.focusNode,
   });
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      autofocus: autoFocus?? false,
+      focusNode: focusNode,
       controller: controller,
       obscureText: obscureText ?? false,
       minLines: minLines,
