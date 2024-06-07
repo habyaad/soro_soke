@@ -25,13 +25,15 @@ class CustomTextFormField extends StatelessWidget {
     this.suffix,
     this.minLines,
     this.maxLines,
-    this.maxLength, this.autoFocus, this.focusNode,
+    this.maxLength,
+    this.autoFocus,
+    this.focusNode,
   });
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      autofocus: autoFocus?? false,
+      autofocus: autoFocus ?? false,
       focusNode: focusNode,
       controller: controller,
       obscureText: obscureText ?? false,
