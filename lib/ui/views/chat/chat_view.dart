@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:soro_soke/ui/common/custom_text_form_field.dart';
+import 'package:soro_soke/ui/common/string_utils.dart';
 import 'package:soro_soke/ui/views/chat/widgets/message_box.dart';
 import 'package:soro_soke/utils/app_colors.dart';
 import 'package:soro_soke/utils/ui_helpers.dart';
@@ -27,9 +28,22 @@ class ChatView extends StackedView<ChatViewModel> {
         iconTheme: const IconThemeData(color: Colors.white),
         automaticallyImplyLeading: true,
         backgroundColor: AppColors.backgroundColor,
-        centerTitle: true,
+        leadingWidth: 92,
+        leading: Row(
+          children: [
+            IconButton(
+                onPressed: () {
+                  viewModel.goBack();
+                },
+                icon: const Icon(Icons.arrow_back)),
+            CircleAvatar(
+              radius: 18,
+              backgroundImage: NetworkImage(friend.photoUrl),
+            ),
+          ],
+        ),
         title: Text(
-          friend.name,
+          StringUtils.capitalize(friend.name),
           style: const TextStyle(
               color: Colors.white, fontSize: 18, fontWeight: FontWeight.w600),
         ),
