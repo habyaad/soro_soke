@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -15,6 +17,7 @@ class SearchViewModel extends BaseViewModel {
   final DatabaseService _databaseService = locator<DatabaseService>();
   final TextEditingController searchController = TextEditingController();
 
+  String message = "";
   User? currentUser;
 
   void initializeUser() async {
@@ -46,7 +49,8 @@ class SearchViewModel extends BaseViewModel {
         // Access user details using doc.data()
       }
     } else {
-      print('User not found');
+      log('User not found');
+      message = "No user found";
     }
     rebuildUi();
   }

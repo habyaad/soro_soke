@@ -28,88 +28,91 @@ class SignUpView extends StackedView<SignUpViewModel> {
           elevation: 0,
           backgroundColor: Colors.white,
         ),*/
-        body: SingleChildScrollView(
-            child: Container(
-                height: screenHeight(context),
-                padding: const EdgeInsets.all(20.0),
-                child: Form(
-                    key: viewModel.formKey,
-                    child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          const Text(
-                            "Create a new account",
-                            style: TextStyle(
-                                fontSize: 32,
-                                color: Colors.white,
-                                fontWeight: FontWeight.w700),
-                          ),
-                          verticalSpace(8),
-                          const Text(
-                            "Please enter your details",
-                            style: TextStyle(
-                                fontSize: 14,
-                                color: Colors.white,
-                                fontWeight: FontWeight.w500),
-                          ),
-                          verticalSpace(24),
-                          CustomTextFormField(
-                            controller: viewModel.usernameController,
-                            hintText: 'Username',
-                            prefixIcon: const Icon(Icons.person),
-                            validator: (value) =>
-                                Validator.validateUsername(value),
-                          ),
-                          verticalSpace(32),
-                          CustomTextFormField(
-                            controller: viewModel.emailController,
-                            hintText: 'Email',
-                            prefixIcon: const Icon(Icons.email),
-                            validator: (value) =>
-                                Validator.validateEmail(value),
-                            keyboardType: TextInputType.emailAddress,
-                          ),
-                          verticalSpace(32),
-                          verticalSpaceSmall,
-                          CustomTextFormField(
-                            controller: viewModel.passwordController,
-                            hintText: 'Password',
-                            obscureText: true,
-                            maxLines: 1,
-                            prefixIcon: const Icon(Icons.lock),
-                            validator: (value) =>
-                                Validator.validatePassword(value),
-                          ),
-                          verticalSpaceLarge,
-                          Center(
-                              child: GeneralButton(
-                            onPressed: () {
-                              if (viewModel.formKey.currentState!.validate()) {
-                                viewModel.formKey.currentState!.save();
-                                // Do something with the validated and saved values
-                                viewModel.signUp();
-                              }
-                            },
-                            buttonColor: AppColors.lightPrimaryColor,
-                            buttonText: 'Create Account',
-                          )),
-                          verticalSpaceSmall,
-                          Center(
-                            child: GestureDetector(
-                              onTap: () {
-                                Navigator.pushReplacementNamed(
-                                    context, '/login-view');
+        body: SafeArea(
+          child: SingleChildScrollView(
+              child: Container(
+                  height: screenHeight(context),
+                  padding: const EdgeInsets.all(20.0),
+                  child: Form(
+                      key: viewModel.formKey,
+                      child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            const Text(
+                              "Create a new account",
+                              style: TextStyle(
+                                  fontSize: 32,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w700),
+                            ),
+                            verticalSpace(8),
+                            const Text(
+                              "Please enter your details",
+                              style: TextStyle(
+                                  fontSize: 14,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w500),
+                            ),
+                            verticalSpace(24),
+                            CustomTextFormField(
+                              controller: viewModel.usernameController,
+                              hintText: 'Username',
+                              prefixIcon: const Icon(Icons.person),
+                              validator: (value) =>
+                                  Validator.validateUsername(value),
+                            ),
+                            verticalSpace(32),
+                            CustomTextFormField(
+                              controller: viewModel.emailController,
+                              hintText: 'Email',
+                              prefixIcon: const Icon(Icons.email),
+                              validator: (value) =>
+                                  Validator.validateEmail(value),
+                              keyboardType: TextInputType.emailAddress,
+                            ),
+                            verticalSpace(32),
+                            verticalSpaceSmall,
+                            CustomTextFormField(
+                              controller: viewModel.passwordController,
+                              hintText: 'Password',
+                              obscureText: true,
+                              maxLines: 1,
+                              prefixIcon: const Icon(Icons.lock),
+                              validator: (value) =>
+                                  Validator.validatePassword(value),
+                            ),
+                            verticalSpaceLarge,
+                            Center(
+                                child: GeneralButton(
+                              onPressed: () {
+                                if (viewModel.formKey.currentState!
+                                    .validate()) {
+                                  viewModel.formKey.currentState!.save();
+                                  // Do something with the validated and saved values
+                                  viewModel.signUp();
+                                }
                               },
-                              child: const Text(
-                                "Already have an account? Sign in",
-                                style: TextStyle(
-                                    fontWeight: FontWeight.w500,
-                                    color: Colors.white),
+                              buttonColor: AppColors.lightPrimaryColor,
+                              buttonText: 'Create Account',
+                            )),
+                            verticalSpaceSmall,
+                            Center(
+                              child: GestureDetector(
+                                onTap: () {
+                                  Navigator.pushReplacementNamed(
+                                      context, '/login-view');
+                                },
+                                child: const Text(
+                                  "Already have an account? Sign in",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                      color: Colors.white),
+                                ),
                               ),
                             ),
-                          ),
-                        ])))));
+                          ])))),
+        ));
   }
 
   @override

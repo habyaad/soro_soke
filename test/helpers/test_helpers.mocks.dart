@@ -81,9 +81,20 @@ class _FakeFirebaseFirestore_3 extends _i1.SmartFake
         );
 }
 
-class _FakeFirebaseStorage_4 extends _i1.SmartFake
+class _FakeDocumentSnapshot_4<T extends Object?> extends _i1.SmartFake
+    implements _i5.DocumentSnapshot<T> {
+  _FakeDocumentSnapshot_4(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakeFirebaseStorage_5 extends _i1.SmartFake
     implements _i6.FirebaseStorage {
-  _FakeFirebaseStorage_4(
+  _FakeFirebaseStorage_5(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -1024,6 +1035,49 @@ class MockDatabaseService extends _i1.Mock implements _i17.DatabaseService {
         returnValue: _i10.Future<void>.value(),
         returnValueForMissingStub: _i10.Future<void>.value(),
       ) as _i10.Future<void>);
+
+  @override
+  _i10.Future<void> saveProfile(
+    String? id,
+    Map<String, String>? profileData,
+  ) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #saveProfile,
+          [
+            id,
+            profileData,
+          ],
+        ),
+        returnValue: _i10.Future<void>.value(),
+        returnValueForMissingStub: _i10.Future<void>.value(),
+      ) as _i10.Future<void>);
+
+  @override
+  _i10.Future<_i5.DocumentSnapshot<Object?>> fetchProfile(String? id) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #fetchProfile,
+          [id],
+        ),
+        returnValue: _i10.Future<_i5.DocumentSnapshot<Object?>>.value(
+            _FakeDocumentSnapshot_4<Object?>(
+          this,
+          Invocation.method(
+            #fetchProfile,
+            [id],
+          ),
+        )),
+        returnValueForMissingStub:
+            _i10.Future<_i5.DocumentSnapshot<Object?>>.value(
+                _FakeDocumentSnapshot_4<Object?>(
+          this,
+          Invocation.method(
+            #fetchProfile,
+            [id],
+          ),
+        )),
+      ) as _i10.Future<_i5.DocumentSnapshot<Object?>>);
 }
 
 /// A class which mocks [StorageService].
@@ -1033,11 +1087,11 @@ class MockStorageService extends _i1.Mock implements _i18.StorageService {
   @override
   _i6.FirebaseStorage get storage => (super.noSuchMethod(
         Invocation.getter(#storage),
-        returnValue: _FakeFirebaseStorage_4(
+        returnValue: _FakeFirebaseStorage_5(
           this,
           Invocation.getter(#storage),
         ),
-        returnValueForMissingStub: _FakeFirebaseStorage_4(
+        returnValueForMissingStub: _FakeFirebaseStorage_5(
           this,
           Invocation.getter(#storage),
         ),

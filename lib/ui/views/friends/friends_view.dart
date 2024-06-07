@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer_animation/shimmer_animation.dart';
@@ -101,7 +103,7 @@ class FriendsView extends StackedView<FriendsViewModel> {
                   } else {
                     List friends = snapshot.data!.docs.map((doc) {
                       Map<String, dynamic> data = doc.data();
-                      print("data : $data");
+                      log("data : $data");
 
                       return data;
                     }).toList();
@@ -113,21 +115,31 @@ class FriendsView extends StackedView<FriendsViewModel> {
                       reverse: true,
                       // Show the latest message at the bottom
                       itemBuilder: (context, index) {
+                        ChatModel userModel = ChatModel(
+                            name: friends[index]["name"],
+                            uid: friends[index]["id"],
+                            photoUrl: friends[index]["profilePhoto"]);
                         return ListTile(
                           minVerticalPadding: 12,
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10)),
                           tileColor: const Color(0xff493a5e),
                           onTap: () {
-                            viewModel.goToUserProfile(ChatModel(
-                                name: friends[index]["name"],
-                                uid: friends[index]["id"],
-                                photoUrl: friends[index]["profilePhoto"]));
+                            viewModel.goToUserProfile(userModel);
                           },
                           leading: CircleAvatar(
                             radius: 15,
                             backgroundImage:
                                 NetworkImage(friends[index]["profilePhoto"]),
+                          ),
+                          trailing: IconButton(
+                            onPressed: () {
+                              viewModel.goToChat(userModel);
+                            },
+                            icon: const Icon(
+                              Icons.message,
+                              color: Colors.white,
+                            ),
                           ),
                           title: Text(
                             friends[index]["name"],

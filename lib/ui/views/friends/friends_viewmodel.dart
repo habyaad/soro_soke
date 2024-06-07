@@ -26,4 +26,8 @@ class FriendsViewModel extends BaseViewModel {
   void goToUserProfile(ChatModel user) {
     _navigationService.navigateToUserProfileView(user: user);
   }
+
+  void goToChat(ChatModel user) {
+    _navigationService.navigateToChatView(friend: user);
+  }
 }

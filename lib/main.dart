@@ -1,6 +1,7 @@
 import 'package:firebase_app_check/firebase_app_check.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:soro_soke/app/app.bottomsheets.dart';
 import 'package:soro_soke/app/app.dialogs.dart';
 import 'package:soro_soke/app/app.locator.dart';
@@ -30,6 +31,8 @@ Future<void> main() async {
       appleProvider: AppleProvider.debug,
     );
   }
+
+  await dotenv.load(fileName: ".env");
   runApp(const MainApp());
 }
 
