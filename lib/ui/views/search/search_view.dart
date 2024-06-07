@@ -80,7 +80,12 @@ class SearchView extends StackedView<SearchViewModel> {
               verticalSpace(16),
               Visibility(
                 visible: viewModel.results.isNotEmpty,
-                replacement: verticalSpaceTiny,
+                replacement: Center(
+                  child: Text(
+                    viewModel.message,
+                    style: const TextStyle(color: Colors.white60),
+                  ),
+                ),
                 child: ListView.separated(
                   shrinkWrap: true,
                   itemCount: viewModel.results.length,
@@ -96,11 +101,12 @@ class SearchView extends StackedView<SearchViewModel> {
                       onTap: () {
                         if (user.uid == viewModel.currentUser!.uid) {
                           viewModel.goToProfile();
+                        } else {
+                          viewModel.goToUserProfile(ChatModel(
+                              name: user.name,
+                              uid: user.uid,
+                              photoUrl: user.profilePhotoUrl.toString()));
                         }
-                        viewModel.goToUserProfile(ChatModel(
-                            name: user.name,
-                            uid: user.uid,
-                            photoUrl: user.profilePhotoUrl.toString()));
                       },
                       leading: CircleAvatar(
                         radius: 30,
