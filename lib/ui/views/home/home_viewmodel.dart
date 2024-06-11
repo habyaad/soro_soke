@@ -13,14 +13,16 @@ class HomeViewModel extends BaseViewModel {
   final _friendService = locator<FriendService>();
   final _navigationService = locator<NavigationService>();
 
+  late Stream<QuerySnapshot<Map<String, dynamic>>> streamData;
   User? currentUser;
 
   void initializeUser() async {
     currentUser = _userService.currentUser;
   }
 
-  Stream<QuerySnapshot<Map<String, dynamic>>>? getFriends() {
-    return _friendService.getFriends();
+  void getFriends() {
+    streamData = _friendService.getFriends();
+    rebuildUi();
   }
 
   void goToChat(ChatModel user) {

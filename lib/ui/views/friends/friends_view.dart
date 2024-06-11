@@ -48,7 +48,7 @@ class FriendsView extends StackedView<FriendsViewModel> {
                         //Default value: Duration(seconds: 0)
                         color: Colors.white,
                         //Default value
-                        colorOpacity: 0.8,
+                        colorOpacity: 0.01,
                         //Default value
                         enabled: true,
                         //Default value
@@ -94,7 +94,28 @@ class FriendsView extends StackedView<FriendsViewModel> {
               StreamBuilder(
                 stream: viewModel.getFriends(),
                 builder: (context, snapshot) {
-                  if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return Shimmer(
+                      duration: const Duration(seconds: 4),
+                      //Default value
+                      interval: const Duration(seconds: 1),
+                      //Default value: Duration(seconds: 0)
+                      color: Colors.grey,
+                      //Default value
+                      colorOpacity: 0.01,
+                      //Default value
+                      enabled: true,
+                      //Default value
+                      direction: const ShimmerDirection.fromLTRB(),
+                      child: Container(
+                        decoration: BoxDecoration(
+                            color: Colors.grey.withOpacity(.01),
+                            borderRadius: BorderRadius.circular(8)),
+                        width: double.infinity,
+                        height: 100,
+                      ),
+                    );
+                  } else if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
                     return const Center(
                         child: Text(
                       "No friends",
