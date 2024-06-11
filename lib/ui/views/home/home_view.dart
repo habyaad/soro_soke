@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:shimmer_animation/shimmer_animation.dart';
 import 'package:soro_soke/utils/app_colors.dart';
 import 'package:stacked/stacked.dart';
 import '../../../models/chat_model.dart';
@@ -17,8 +18,6 @@ class HomeView extends StackedView<HomeViewModel> {
     HomeViewModel viewModel,
     Widget? child,
   ) {
-    viewModel.initializeUser();
-
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
       body: SafeArea(
@@ -79,9 +78,31 @@ class HomeView extends StackedView<HomeViewModel> {
               verticalSpace(24),
               Expanded(
                 child: StreamBuilder(
-                  stream: viewModel.getFriends(),
+                  stream: viewModel.streamData,
                   builder: (context, snapshot) {
-                    if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return Shimmer(
+                        duration: const Duration(seconds: 4),
+                        //Default value
+                        interval: const Duration(seconds: 1),
+                        //Default value: Duration(seconds: 0)
+                        color: Colors.grey,
+                        //Default value
+                        colorOpacity: 0.01,
+                        //Default value
+                        enabled: true,
+                        //Default value
+                        direction: const ShimmerDirection.fromLTRB(),
+                        child: Container(
+                          decoration: BoxDecoration(
+                              color: Colors.grey.withOpacity(.01),
+                              borderRadius: BorderRadius.circular(8)),
+                          width: double.infinity,
+                          height: 100,
+                        ),
+                      );
+                    } else if (!snapshot.hasData ||
+                        snapshot.data!.docs.isEmpty) {
                       return const Center(
                           child: Text(
                         "No chats, add friends to start chatting",
@@ -143,12 +164,18 @@ class HomeView extends StackedView<HomeViewModel> {
   }
 
   @override
+  void onViewModelReady(HomeViewModel viewModel) {
+    super.onViewModelReady(viewModel);
+    viewModel.initializeUser();
+    viewModel.getFriends();
+  }
+
+  @override
+  bool get fireOnViewModelReadyOnce => true;
+
+  @override
   HomeViewModel viewModelBuilder(
     BuildContext context,
   ) =>
       HomeViewModel();
-
-/*@override
-  void onViewModelReady(HomeViewModel viewModel) => SchedulerBinding.instance
-      .addPostFrameCallback((timeStamp) => viewModel.initializeUser());*/
 }
