@@ -1,4 +1,7 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:stacked/stacked.dart';
 import '../../../models/message_model.dart';
 import '../../../utils/app_colors.dart';
@@ -61,7 +64,71 @@ class AiChatView extends StackedView<AiChatViewModel> {
             // Display Messages
 
             Expanded(
-              child: ListView.separated(
+              child: StreamBuilder(
+                stream: viewModel.getMessagesStream(viewModel.AI_ID),
+                builder: (context, snapshot) {
+                  if (!snapshot.hasData) {
+                    log("no messages");
+
+                    return const Center(
+                      child: SizedBox(),
+                    );
+                  }
+                  List<Message> messages = snapshot.data!.docs.map((doc) {
+                    Map<String, dynamic> data =
+                        doc.data() as Map<String, dynamic>;
+                    //log("data : $data");
+
+                    return Message(
+                      senderId: data['senderId'],
+                      receiverId: data['receiverId'],
+                      content: data['content'],
+                      timestamp: data['timestamp'].toDate(),
+                    );
+                  }).toList();
+                  log("messages: $messages");
+                  return ListView.separated(
+                    controller: viewModel.scrollController,
+                    reverse: true,
+                    separatorBuilder: (ctx, idx) => verticalSpace(12),
+                    itemCount: messages.length,
+                    itemBuilder: (context, index) {
+                      bool checked = viewModel.dateChecked;
+
+                      viewModel.dateChecked == false
+                          ? null
+                          : viewModel.chatDate = DateFormat('MMM d', 'en_US')
+                              .format(messages[index].timestamp);
+                      viewModel.dateChecked = true;
+
+                      return Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Visibility(
+                            visible: checked == false &&
+                                viewModel.chatDate ==
+                                    DateFormat('MMM d', 'en_US')
+                                        .format(messages[index].timestamp),
+                            replacement: const SizedBox(),
+                            child: Text(
+                              DateFormat('MMM d', 'en_US')
+                                  .format(messages[index].timestamp),
+                              style: const TextStyle(color: Colors.white),
+                            ),
+                          ),
+                          MessageBox(
+                            message: messages[index],
+                            sender:
+                                messages[index].receiverId == viewModel.AI_ID,
+                          ),
+                        ],
+                      );
+                    },
+                  );
+                },
+              )
+
+              /*ListView.separated(
                 controller: viewModel.scrollController,
                 separatorBuilder: (ctx, idx) => verticalSpace(12),
                 itemCount: viewModel.generatedContent.length,
@@ -100,7 +167,8 @@ class AiChatView extends StackedView<AiChatViewModel> {
                     ],
                   );
                 },
-              ),
+              )*/
+              ,
             ),
             // Input for Sending Messages
             verticalSpace(24),
@@ -162,9 +230,13 @@ class AiChatView extends StackedView<AiChatViewModel> {
   @override
   void onViewModelReady(AiChatViewModel viewModel) {
     super.onViewModelReady(viewModel);
+    viewModel.initializeUser();
     viewModel.initChat();
-    viewModel.scrollDown();
+    //viewModel.scrollDown();
   }
+
+  @override
+  bool get fireOnViewModelReadyOnce => true;
 
   @override
   AiChatViewModel viewModelBuilder(

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -6,10 +8,12 @@ import 'package:google_generative_ai/google_generative_ai.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 import '../../../app/app.locator.dart';
+import '../../../models/message_model.dart';
 import '../../../services/message_service.dart';
 import '../../../services/user_service.dart';
 
 class AiChatViewModel extends BaseViewModel {
+  String AI_ID = "PersonalAI";
   final UserService _userService = locator<UserService>();
   final NavigationService _navigationService = locator<NavigationService>();
   final MessageService _messageService = locator<MessageService>();
@@ -42,30 +46,28 @@ class AiChatViewModel extends BaseViewModel {
 
   void scrollDown() {
     WidgetsBinding.instance.addPostFrameCallback(
-      (_) => scrollController.animateTo(
-        scrollController.position.maxScrollExtent,
-        duration: const Duration(
-          milliseconds: 750,
-        ),
-        curve: Curves.easeOutCirc,
-      ),
+      (_) => scrollController.hasClients
+          ? scrollController.animateTo(
+              scrollController.position.minScrollExtent,
+              duration: const Duration(
+                milliseconds: 750,
+              ),
+              curve: Curves.easeOutCirc,
+            )
+          : null,
     );
   }
 
-  // Future<void> sendMessage(String friendID) async {
-  //
-  //   if (messageContent.isNotEmpty) {
-  //     Message newMessage = Message(
-  //       senderId: currentUser!.uid, // replace with the actual current user ID
-  //       receiverId: friendID,
-  //       content: messageContent,
-  //       timestamp: DateTime.now(),
-  //     );
-  //
-  //     await _messageService.saveMessage(newMessage);
-  //     //rebuildUi();
-  //   }
-  // }
+  Future<void> saveMessage(
+      String message, String senderID, String receiverID) async {
+    Message newMessage = Message(
+      senderId: senderID, // replace with the actual current user ID
+      receiverId: receiverID,
+      content: message,
+      timestamp: DateTime.now(),
+    );
+    await _messageService.saveMessage(newMessage, senderId: senderID);
+  }
 
   Stream<QuerySnapshot<Object?>> getMessagesStream(String friendID) {
     return _messageService.getMessagesBetweenUsers(friendID);
@@ -81,36 +83,35 @@ class AiChatViewModel extends BaseViewModel {
     }
     String message = messageController.text.trim();
     messageController.clear();
-
     loading = true;
     rebuildUi();
+    await saveMessage(message, currentUser!.uid, AI_ID);
 
     try {
-      generatedContent.add((image: null, text: message, fromUser: true));
       final response = await _chat.sendMessage(
         Content.text(message),
       );
-      final text = response.text;
-      generatedContent.add((image: null, text: text, fromUser: false));
+      final text = response.text?.trim();
 
       if (text == null) {
         _showError('No response from API.', context);
         return;
       } else {
-        loading = false;
-        rebuildUi();
+        log(text);
 
+        await saveMessage(text, AI_ID, currentUser!.uid);
+        loading = false;
         scrollDown();
+        rebuildUi();
       }
     } catch (e) {
-      _showError(e.toString(), context);
+      log(e.toString());
+      _showError("An error has occurred, try again!", context);
       loading = false;
       rebuildUi();
     } finally {
-      messageController.clear();
       loading = false;
       rebuildUi();
-      textFieldFocus.requestFocus();
     }
   }
 
@@ -120,8 +121,8 @@ class AiChatViewModel extends BaseViewModel {
       builder: (context) {
         return AlertDialog(
           title: const Text('Something went wrong'),
-          content: const SingleChildScrollView(
-            child: SelectableText("Try again later or check your internet"),
+          content: SingleChildScrollView(
+            child: SelectableText(message),
           ),
           actions: [
             TextButton(
