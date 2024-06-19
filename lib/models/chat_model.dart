@@ -1,4 +1,3 @@
-
 // ChatModel class definition
 
 class ChatModel {
