@@ -1137,6 +1137,19 @@ class MockStorageService extends _i1.Mock implements _i18.StorageService {
 /// See the documentation for Mockito's code generation for more information.
 class MockFriendService extends _i1.Mock implements _i20.FriendService {
   @override
+  _i10.Stream<_i5.QuerySnapshot<Map<String, dynamic>>> getFriends() =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #getFriends,
+          [],
+        ),
+        returnValue:
+            _i10.Stream<_i5.QuerySnapshot<Map<String, dynamic>>>.empty(),
+        returnValueForMissingStub:
+            _i10.Stream<_i5.QuerySnapshot<Map<String, dynamic>>>.empty(),
+      ) as _i10.Stream<_i5.QuerySnapshot<Map<String, dynamic>>>);
+
+  @override
   _i10.Future<_i5.QuerySnapshot<Object?>?> acceptRequest(dynamic friendID) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -1228,16 +1241,22 @@ class MockFriendService extends _i1.Mock implements _i20.FriendService {
 /// See the documentation for Mockito's code generation for more information.
 class MockMessageService extends _i1.Mock implements _i21.MessageService {
   @override
-  String getConversationID(String? friendUid) => (super.noSuchMethod(
+  String getConversationID(
+    String? friendUid, {
+    dynamic senderId,
+  }) =>
+      (super.noSuchMethod(
         Invocation.method(
           #getConversationID,
           [friendUid],
+          {#senderId: senderId},
         ),
         returnValue: _i8.dummyValue<String>(
           this,
           Invocation.method(
             #getConversationID,
             [friendUid],
+            {#senderId: senderId},
           ),
         ),
         returnValueForMissingStub: _i8.dummyValue<String>(
@@ -1245,15 +1264,21 @@ class MockMessageService extends _i1.Mock implements _i21.MessageService {
           Invocation.method(
             #getConversationID,
             [friendUid],
+            {#senderId: senderId},
           ),
         ),
       ) as String);
 
   @override
-  _i10.Future<void> saveMessage(_i22.Message? message) => (super.noSuchMethod(
+  _i10.Future<void> saveMessage(
+    _i22.Message? message, {
+    dynamic senderId,
+  }) =>
+      (super.noSuchMethod(
         Invocation.method(
           #saveMessage,
           [message],
+          {#senderId: senderId},
         ),
         returnValue: _i10.Future<void>.value(),
         returnValueForMissingStub: _i10.Future<void>.value(),

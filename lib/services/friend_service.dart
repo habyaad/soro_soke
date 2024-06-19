@@ -26,15 +26,10 @@ class FriendService {
     }
   }
 
-  Stream<QuerySnapshot<Map<String, dynamic>>>? getFriends() {
-    try {
-      return _databaseService.store
-          .collection('users/${currentUser!.uid}/friends')
-          .snapshots();
-    } catch (e) {
-      _loggerService.error(e.toString());
-      return null;
-    }
+  Stream<QuerySnapshot<Map<String, dynamic>>> getFriends() {
+    return _databaseService.store
+        .collection('users/${currentUser!.uid}/friends')
+        .snapshots();
   }
 
   Stream<QuerySnapshot<Map<String, dynamic>>>? getFriendsWithMessages() {

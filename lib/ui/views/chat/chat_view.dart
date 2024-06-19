@@ -38,12 +38,12 @@ class ChatView extends StackedView<ChatViewModel> {
                 icon: const Icon(Icons.arrow_back)),
             CircleAvatar(
               radius: 18,
-              backgroundImage: NetworkImage(friend.photoUrl),
+              backgroundImage: NetworkImage(friend.photoUrl!),
             ),
           ],
         ),
         title: Text(
-          StringUtils.capitalize(friend.name),
+          StringUtils.capitalize(friend.name!),
           style: const TextStyle(
               color: Colors.white, fontSize: 18, fontWeight: FontWeight.w600),
         ),
@@ -68,57 +68,54 @@ class ChatView extends StackedView<ChatViewModel> {
                     return const Center(
                       child: SizedBox(),
                     );
-                  }
-                  List<Message> messages = snapshot.data!.docs.map((doc) {
-                    Map<String, dynamic> data =
-                        doc.data() as Map<String, dynamic>;
-                    log("data : $data");
+                  } else {
+                    List<Message> messages = snapshot.data!.docs.map((doc) {
+                      Map<String, dynamic> data =
+                          doc.data() as Map<String, dynamic>;
+                      log("data : $data");
 
-                    return Message(
-                      senderId: data['senderId'],
-                      receiverId: data['receiverId'],
-                      content: data['content'],
-                      timestamp: data['timestamp'].toDate(),
-                    );
-                  }).toList();
-                  log("messages: $messages");
-                  log("got messages");
-                  return ListView.separated(
-                    separatorBuilder: (ctx, idx) => verticalSpace(12),
-                    itemCount: messages.length,
-                    reverse: true, // Show the latest message at the bottom
-                    itemBuilder: (context, index) {
-                      bool checked = viewModel.dateChecked;
+                      return Message.fromJson(data);
+                    }).toList();
+                    log("messages: $messages");
+                    log("got messages");
+                    return ListView.separated(
+                      separatorBuilder: (ctx, idx) => verticalSpace(12),
+                      itemCount: messages.length,
+                      reverse: true, // Show the latest message at the bottom
+                      itemBuilder: (context, index) {
+                        bool checked = viewModel.dateChecked;
 
-                      viewModel.dateChecked == false
-                          ? null
-                          : viewModel.chatDate = DateFormat('MMM d', 'en_US')
-                              .format(messages[index].timestamp);
-                      viewModel.dateChecked = true;
+                        viewModel.dateChecked == false
+                            ? null
+                            : viewModel.chatDate = DateFormat('MMM d', 'en_US')
+                                .format(messages[index].timestamp);
+                        viewModel.dateChecked = true;
 
-                      return Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Visibility(
-                            visible: checked == false &&
-                                viewModel.chatDate ==
-                                    DateFormat('MMM d', 'en_US')
-                                        .format(messages[index].timestamp),
-                            replacement: const SizedBox(),
-                            child: Text(
-                              DateFormat('MMM d', 'en_US')
-                                  .format(messages[index].timestamp),
-                              style: const TextStyle(color: Colors.white),
+                        return Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Visibility(
+                              visible: checked == false &&
+                                  viewModel.chatDate ==
+                                      DateFormat('MMM d', 'en_US')
+                                          .format(messages[index].timestamp),
+                              replacement: const SizedBox(),
+                              child: Text(
+                                DateFormat('MMM d', 'en_US')
+                                    .format(messages[index].timestamp),
+                                style: const TextStyle(color: Colors.white),
+                              ),
                             ),
-                          ),
-                          MessageBox(
-                            message: messages[index],
-                            sender: messages[index].receiverId == friend.uid,
-                          ),
-                        ],
-                      );
-                    },
-                  );
+                            MessageBox(
+                              message: messages[index],
+                              sender:
+                                  messages[index].receiver.uid == friend.uid,
+                            ),
+                          ],
+                        );
+                      },
+                    );
+                  }
                 },
               ),
             ),
@@ -141,7 +138,7 @@ class ChatView extends StackedView<ChatViewModel> {
                   ),
                   GestureDetector(
                     onTap: () {
-                      viewModel.sendMessage(friend.uid);
+                      viewModel.sendMessage(friend);
                     },
                     child: Container(
                       alignment: Alignment.center,

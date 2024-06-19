@@ -1,36 +1,38 @@
+import 'dart:convert';
+
+import 'package:soro_soke/models/chat_model.dart';
+
 // To parse this JSON data, do
 //
 //     final message = messageFromJson(jsonString);
-
-import 'dart:convert';
 
 Message messageFromJson(String str) => Message.fromJson(json.decode(str));
 
 String messageToJson(Message data) => json.encode(data.toJson());
 
 class Message {
-  final String senderId;
-  final String receiverId;
+  final ChatModel sender;
+  final ChatModel receiver;
   final String content;
   final DateTime timestamp;
 
   Message({
-    required this.senderId,
-    required this.receiverId,
+    required this.sender,
+    required this.receiver,
     required this.content,
     required this.timestamp,
   });
 
   factory Message.fromJson(Map<String, dynamic> json) => Message(
-        senderId: json["senderId"],
-        receiverId: json["receiverId"],
+        sender: ChatModel.fromJson(json["sender"]),
+        receiver: ChatModel.fromJson(json["receiver"]),
         content: json["content"],
         timestamp: DateTime.parse(json["timestamp"]),
       );
 
   Map<String, dynamic> toJson() => {
-        "senderId": senderId,
-        "receiverId": receiverId,
+        "sender": sender.toJson(),
+        "receiver": receiver.toJson(),
         "content": content,
         "timestamp": timestamp.toIso8601String(),
       };
