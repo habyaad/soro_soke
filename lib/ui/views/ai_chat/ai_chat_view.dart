@@ -73,58 +73,54 @@ class AiChatView extends StackedView<AiChatViewModel> {
                     return const Center(
                       child: SizedBox(),
                     );
-                  }
-                  List<Message> messages = snapshot.data!.docs.map((doc) {
-                    Map<String, dynamic> data =
-                        doc.data() as Map<String, dynamic>;
-                    //log("data : $data");
+                  } else {
+                    List<Message> messages = snapshot.data!.docs.map((doc) {
+                      Map<String, dynamic> data =
+                          doc.data() as Map<String, dynamic>;
+                      //log("data : $data");
 
-                    return Message(
-                      senderId: data['senderId'],
-                      receiverId: data['receiverId'],
-                      content: data['content'],
-                      timestamp: data['timestamp'].toDate(),
-                    );
-                  }).toList();
-                  log("messages: $messages");
-                  return ListView.separated(
-                    controller: viewModel.scrollController,
-                    reverse: true,
-                    separatorBuilder: (ctx, idx) => verticalSpace(12),
-                    itemCount: messages.length,
-                    itemBuilder: (context, index) {
-                      bool checked = viewModel.dateChecked;
+                      return Message.fromJson(data);
+                    }).toList();
+                    log("messages: $messages");
+                    return ListView.separated(
+                      controller: viewModel.scrollController,
+                      reverse: true,
+                      separatorBuilder: (ctx, idx) => verticalSpace(12),
+                      itemCount: messages.length,
+                      itemBuilder: (context, index) {
+                        bool checked = viewModel.dateChecked;
 
-                      viewModel.dateChecked == false
-                          ? null
-                          : viewModel.chatDate = DateFormat('MMM d', 'en_US')
-                              .format(messages[index].timestamp);
-                      viewModel.dateChecked = true;
+                        viewModel.dateChecked == false
+                            ? null
+                            : viewModel.chatDate = DateFormat('MMM d', 'en_US')
+                                .format(messages[index].timestamp);
+                        viewModel.dateChecked = true;
 
-                      return Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Visibility(
-                            visible: checked == false &&
-                                viewModel.chatDate ==
-                                    DateFormat('MMM d', 'en_US')
-                                        .format(messages[index].timestamp),
-                            replacement: const SizedBox(),
-                            child: Text(
-                              DateFormat('MMM d', 'en_US')
-                                  .format(messages[index].timestamp),
-                              style: const TextStyle(color: Colors.white),
+                        return Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Visibility(
+                              visible: checked == false &&
+                                  viewModel.chatDate ==
+                                      DateFormat('MMM d', 'en_US')
+                                          .format(messages[index].timestamp),
+                              replacement: const SizedBox(),
+                              child: Text(
+                                DateFormat('MMM d', 'en_US')
+                                    .format(messages[index].timestamp),
+                                style: const TextStyle(color: Colors.white),
+                              ),
                             ),
-                          ),
-                          MessageBox(
-                            message: messages[index],
-                            sender:
-                                messages[index].receiverId == viewModel.AI_ID,
-                          ),
-                        ],
-                      );
-                    },
-                  );
+                            MessageBox(
+                              message: messages[index],
+                              sender: messages[index].receiver.uid ==
+                                  viewModel.AI_ID,
+                            ),
+                          ],
+                        );
+                      },
+                    );
+                  }
                 },
               )
 

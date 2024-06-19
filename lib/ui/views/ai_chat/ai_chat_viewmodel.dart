@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:google_generative_ai/google_generative_ai.dart';
+import 'package:soro_soke/models/chat_model.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 import '../../../app/app.locator.dart';
@@ -61,12 +62,11 @@ class AiChatViewModel extends BaseViewModel {
   Future<void> saveMessage(
       String message, String senderID, String receiverID) async {
     Message newMessage = Message(
-      senderId: senderID, // replace with the actual current user ID
-      receiverId: receiverID,
-      content: message,
-      timestamp: DateTime.now(),
-    );
-    await _messageService.saveMessage(newMessage, senderId: senderID);
+        content: message,
+        timestamp: DateTime.now(),
+        sender: ChatModel(uid: senderID, photoUrl: null, name: null),
+        receiver: ChatModel(uid: receiverID, photoUrl: null, name: null));
+    await _messageService.saveAIMessage(newMessage, senderId: senderID);
   }
 
   Stream<QuerySnapshot<Object?>> getMessagesStream(String friendID) {
