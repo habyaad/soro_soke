@@ -28,17 +28,19 @@ class MessageService {
 
 // Save a message
   Future<void> saveMessage(Message message, {senderId}) async {
+    await saveChatDetails(message);
     await _databaseService.store
         .collection(
-            'messages/${getConversationID(message.receiverId, senderId: senderId)}/chat')
-        .add({
-      'senderId': message.senderId,
-      'receiverId': message.receiverId,
-      'content': message.content,
-      'timestamp': message.timestamp,
-    });
+            'messages/${getConversationID(message.receiver.uid, senderId: senderId)}/chat')
+        .add(message.toJson());
   }
 
+  Future<void> saveAIMessage(Message message, {senderId}) async {
+    await _databaseService.store
+        .collection(
+        'messages/${getConversationID(message.receiver.uid, senderId: senderId)}/chat')
+        .add(message.toJson());
+  }
 // Retrieve messages between two users
 
   Stream<QuerySnapshot<Object?>> getMessagesBetweenUsers(String friendUid) {
@@ -47,5 +49,26 @@ class MessageService {
         //.where("senderId", isEqualTo: user1Id)
         .orderBy("timestamp", descending: true)
         .snapshots();
+  }
+
+  Stream<QuerySnapshot<Map<String, dynamic>>> getChats() {
+    return _databaseService.store
+        .collection('messages')
+        .where("participantIds", arrayContains: _userService.currentUser!.uid)
+        .orderBy("lastUpdatedAt", descending: true)
+        .snapshots();
+  }
+
+  saveChatDetails(Message message) async {
+    await _databaseService.store
+        .collection('messages')
+        .doc(getConversationID(message.receiver.uid))
+        .set({
+      "lastMessage": message.content,
+      "lastUpdatedAt": message.timestamp,
+      "participantIds": [message.sender.uid, message.receiver.uid],
+      "sender": message.sender.toJson(),
+      "receiver": message.receiver.toJson()
+    }).onError((e, _) => log("Error writing document: $e"));
   }
 }
