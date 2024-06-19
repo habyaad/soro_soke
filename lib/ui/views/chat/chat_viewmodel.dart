@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:soro_soke/app/app.locator.dart';
+import 'package:soro_soke/models/chat_model.dart';
 import 'package:soro_soke/services/message_service.dart';
 import 'package:soro_soke/services/user_service.dart';
 import 'package:stacked/stacked.dart';
@@ -22,15 +23,20 @@ class ChatViewModel extends BaseViewModel {
     currentUser = _userService.currentUser;
   }
 
-  Future<void> sendMessage(String friendID) async {
+  Future<void> sendMessage(
+      ChatModel friend) async {
     String messageContent = messageController.text.trim();
     messageController.clear();
     if (messageContent.isNotEmpty) {
       Message newMessage = Message(
-        senderId: currentUser!.uid, // replace with the actual current user ID
-        receiverId: friendID,
         content: messageContent,
         timestamp: DateTime.now(),
+        sender: ChatModel(
+            uid: currentUser!.uid,
+            photoUrl: currentUser!.photoURL!,
+            name: currentUser!.displayName!),
+        receiver:
+        ChatModel(uid: friend.uid, photoUrl: friend.photoUrl, name: friend.name),
       );
 
       await _messageService.saveMessage(newMessage);
