@@ -38,7 +38,7 @@ class MessageService {
   Future<void> saveAIMessage(Message message, {senderId}) async {
     await _databaseService.store
         .collection(
-        'messages/${getConversationID(message.receiver.uid, senderId: senderId)}/chat')
+            'messages/${getConversationID(message.receiver.uid, senderId: senderId)}/chat')
         .add(message.toJson());
   }
 // Retrieve messages between two users

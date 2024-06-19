@@ -1,4 +1,3 @@
-import 'dart:convert';
 
 // ChatModel class definition
 
@@ -15,15 +14,15 @@ class ChatModel {
 
   // Factory constructor for creating a ChatModel instance from JSON
   factory ChatModel.fromJson(Map<String, dynamic> json) => ChatModel(
-    name: json["name"],
-    uid: json["uid"],
-    photoUrl: json["photoUrl"],
-  );
+        name: json["name"],
+        uid: json["uid"],
+        photoUrl: json["photoUrl"],
+      );
 
   // Method for converting a ChatModel instance to JSON
   Map<String, dynamic> toJson() => {
-    "name": name,
-    "uid": uid,
-    "photoUrl": photoUrl,
-  };
+        "name": name,
+        "uid": uid,
+        "photoUrl": photoUrl,
+      };
 }

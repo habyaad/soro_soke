@@ -5,7 +5,6 @@ import 'dart:convert';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:soro_soke/models/chat_model.dart';
 
-import 'message_model.dart';
 
 Conversation conversationFromJson(String str) =>
     Conversation.fromJson(json.decode(str));

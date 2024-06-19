@@ -23,8 +23,7 @@ class ChatViewModel extends BaseViewModel {
     currentUser = _userService.currentUser;
   }
 
-  Future<void> sendMessage(
-      ChatModel friend) async {
+  Future<void> sendMessage(ChatModel friend) async {
     String messageContent = messageController.text.trim();
     messageController.clear();
     if (messageContent.isNotEmpty) {
@@ -35,8 +34,8 @@ class ChatViewModel extends BaseViewModel {
             uid: currentUser!.uid,
             photoUrl: currentUser!.photoURL!,
             name: currentUser!.displayName!),
-        receiver:
-        ChatModel(uid: friend.uid, photoUrl: friend.photoUrl, name: friend.name),
+        receiver: ChatModel(
+            uid: friend.uid, photoUrl: friend.photoUrl, name: friend.name),
       );
 
       await _messageService.saveMessage(newMessage);

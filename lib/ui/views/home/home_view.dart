@@ -1,12 +1,10 @@
 import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:shimmer_animation/shimmer_animation.dart';
 import 'package:soro_soke/utils/app_colors.dart';
 import 'package:stacked/stacked.dart';
 import '../../../models/chat_model.dart';
 import '../../../models/conversation_model.dart';
-import '../../../models/message_model.dart';
 import '../../../utils/ui_helpers.dart';
 import '../../common/string_utils.dart';
 import 'home_viewmodel.dart';
