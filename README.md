@@ -54,6 +54,15 @@
 
 <img height="450" alt="Screen Shot 2024-06-04 at 13 13 30" src="https://github.com/habyaad/soro_soke/assets/66385365/cb3a1490-3c06-4873-848c-92993e55af4c">
 
+### Home and Chat[Friends & AI]
+<img height="450" alt="Screen Shot 2024-06-19 at 18 17 38" src="https://github.com/habyaad/soro_soke/assets/66385365/b15cd5dc-fa70-4419-a7e2-832fe714716c">
+
+<img height="450" alt="Screen Shot 2024-06-19 at 18 17 19" src="https://github.com/habyaad/soro_soke/assets/66385365/c40a31db-a11f-4657-82ce-a9e326836b1e">
+
+<img height="450" alt="Screen Shot 2024-06-04 at 17 44 36" src="https://github.com/habyaad/soro_soke/assets/66385365/73452022-dcf5-41c1-948b-f9bf84e7cb46">
+
+<img height="450" alt="Screen Shot 2024-06-04 at 17 43 23" src="https://github.com/habyaad/soro_soke/assets/66385365/632f8dd6-d3f5-44f3-b48d-6924d5740276">
+
 ### Search and add friends
 <img height="450" alt="Screen Shot 2024-06-04 at 17 19 34" src="https://github.com/habyaad/soro_soke/assets/66385365/1ee37236-5edc-4126-a2a5-fb92141ec8c9">
 
@@ -64,11 +73,6 @@
 <img height="450" alt="Screen Shot 2024-06-04 at 17 42 40" src="https://github.com/habyaad/soro_soke/assets/66385365/c7e740dc-c796-450a-80df-ce6c987464ba">
 
 <img height="450" alt="Screen Shot 2024-06-04 at 17 42 55" src="https://github.com/habyaad/soro_soke/assets/66385365/506afeb7-5252-4663-8f25-79f8af866b81">
-
-### Chat with friends
-<img height="450" alt="Screen Shot 2024-06-04 at 17 44 36" src="https://github.com/habyaad/soro_soke/assets/66385365/73452022-dcf5-41c1-948b-f9bf84e7cb46">
-
-<img height="450" alt="Screen Shot 2024-06-04 at 17 43 23" src="https://github.com/habyaad/soro_soke/assets/66385365/632f8dd6-d3f5-44f3-b48d-6924d5740276">
 
 ### Profile
 
