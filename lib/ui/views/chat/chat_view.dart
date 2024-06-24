@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:shimmer_animation/shimmer_animation.dart';
 import 'package:soro_soke/ui/common/custom_text_form_field.dart';
 import 'package:soro_soke/ui/common/string_utils.dart';
 import 'package:soro_soke/ui/views/chat/widgets/message_box.dart';
@@ -62,7 +63,28 @@ class ChatView extends StackedView<ChatViewModel> {
               child: StreamBuilder(
                 stream: viewModel.getMessagesStream(friend.uid),
                 builder: (context, snapshot) {
-                  if (!snapshot.hasData) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return Shimmer(
+                      duration: const Duration(seconds: 4),
+                      //Default value
+                      interval: const Duration(seconds: 1),
+                      //Default value: Duration(seconds: 0)
+                      color: Colors.grey,
+                      //Default value
+                      colorOpacity: 0.01,
+                      //Default value
+                      enabled: true,
+                      //Default value
+                      direction: const ShimmerDirection.fromLTRB(),
+                      child: Container(
+                        decoration: BoxDecoration(
+                            color: Colors.grey.withOpacity(.01),
+                            borderRadius: BorderRadius.circular(8)),
+                        width: double.infinity,
+                        height: 100,
+                      ),
+                    );
+                  } else if (!snapshot.hasData) {
                     log("no messages");
 
                     return const Center(

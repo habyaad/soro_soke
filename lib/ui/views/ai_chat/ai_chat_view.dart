@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:shimmer_animation/shimmer_animation.dart';
 import 'package:stacked/stacked.dart';
 import '../../../models/message_model.dart';
 import '../../../utils/app_colors.dart';
@@ -67,7 +68,28 @@ class AiChatView extends StackedView<AiChatViewModel> {
               child: StreamBuilder(
                 stream: viewModel.getMessagesStream(viewModel.AI_ID),
                 builder: (context, snapshot) {
-                  if (!snapshot.hasData) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return Shimmer(
+                      duration: const Duration(seconds: 4),
+                      //Default value
+                      interval: const Duration(seconds: 1),
+                      //Default value: Duration(seconds: 0)
+                      color: Colors.grey,
+                      //Default value
+                      colorOpacity: 0.01,
+                      //Default value
+                      enabled: true,
+                      //Default value
+                      direction: const ShimmerDirection.fromLTRB(),
+                      child: Container(
+                        decoration: BoxDecoration(
+                            color: Colors.grey.withOpacity(.01),
+                            borderRadius: BorderRadius.circular(8)),
+                        width: double.infinity,
+                        height: 100,
+                      ),
+                    );
+                  } else if (!snapshot.hasData) {
                     log("no messages");
 
                     return const Center(
