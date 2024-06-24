@@ -41,6 +41,7 @@ class MessageService {
             'messages/${getConversationID(message.receiver.uid, senderId: senderId)}/chat')
         .add(message.toJson());
   }
+
 // Retrieve messages between two users
 
   Stream<QuerySnapshot<Object?>> getMessagesBetweenUsers(String friendUid) {
@@ -67,8 +68,24 @@ class MessageService {
       "lastMessage": message.content,
       "lastUpdatedAt": message.timestamp,
       "participantIds": [message.sender.uid, message.receiver.uid],
+      "read": false,
       "sender": message.sender.toJson(),
       "receiver": message.receiver.toJson()
     }).onError((e, _) => log("Error writing document: $e"));
+  }
+
+  markChatAsRead(receiverUid) async {
+    DocumentSnapshot doc = await _databaseService.store
+        .collection('messages')
+        .doc(getConversationID(receiverUid))
+        .get();
+    if (doc.get("sender") == receiverUid) {
+      await _databaseService.store
+          .collection('messages')
+          .doc(getConversationID(receiverUid))
+          .set({
+        "read": true,
+      }).onError((e, _) => log("Error writing document: $e"));
+    }
   }
 }
