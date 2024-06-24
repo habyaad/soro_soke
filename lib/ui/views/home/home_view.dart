@@ -138,6 +138,9 @@ class HomeView extends StackedView<HomeViewModel> {
                                 borderRadius: BorderRadius.circular(10)),
                             tileColor: const Color(0xFF261C2C),
                             onTap: () {
+                              sender == true
+                                  ? null
+                                  : viewModel.markChatAsRead(receiver.uid);
                               viewModel.goToChat(receiver);
                             },
                             leading: CircleAvatar(
@@ -158,12 +161,33 @@ class HomeView extends StackedView<HomeViewModel> {
                                   fontStyle: FontStyle.italic,
                                   overflow: TextOverflow.ellipsis),
                             ),
-                            trailing: Text(
-                              "${convos[index].lastUpdatedAt.hour}: ${convos[index].lastUpdatedAt.minute}",
-                              style: const TextStyle(
-                                  fontSize: 10,
-                                  color: Colors.white70,
-                                  overflow: TextOverflow.ellipsis),
+                            trailing: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Text(
+                                  "${convos[index].lastUpdatedAt.hour}: ${convos[index].lastUpdatedAt.minute}",
+                                  style: const TextStyle(
+                                      fontSize: 10,
+                                      color: Colors.white70,
+                                      overflow: TextOverflow.ellipsis),
+                                ),
+                                horizontalSpaceSmall,
+                                Visibility(
+                                  visible: sender == false,
+                                  replacement: const SizedBox(
+                                    width: 6,
+                                  ),
+                                  child: Container(
+                                    width: 6,
+                                    height: 6,
+                                    decoration: BoxDecoration(
+                                        color: convos[index].read == false
+                                            ? Colors.pinkAccent
+                                            : Colors.transparent,
+                                        shape: BoxShape.circle),
+                                  ),
+                                )
+                              ],
                             ),
                           );
                         },

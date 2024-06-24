@@ -11,7 +11,6 @@ import '../../../services/user_service.dart';
 
 class HomeViewModel extends BaseViewModel {
   final _userService = locator<UserService>();
-  final _friendService = locator<FriendService>();
   final _messageService = locator<MessageService>();
   final _navigationService = locator<NavigationService>();
 
@@ -25,6 +24,10 @@ class HomeViewModel extends BaseViewModel {
   void getFriends() {
     streamData = _messageService.getChats();
     rebuildUi();
+  }
+
+  markChatAsRead(receiverUid) async {
+    _messageService.markChatAsRead(receiverUid);
   }
 
   void goToChat(ChatModel user) {
