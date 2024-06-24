@@ -75,11 +75,17 @@ class MessageService {
   }
 
   markChatAsRead(receiverUid) async {
-    await _databaseService.store
+    DocumentSnapshot doc = await _databaseService.store
         .collection('messages')
         .doc(getConversationID(receiverUid))
-        .set({
-      "read": true,
-    }).onError((e, _) => log("Error writing document: $e"));
+        .get();
+    if (doc.get("sender") == receiverUid) {
+      await _databaseService.store
+          .collection('messages')
+          .doc(getConversationID(receiverUid))
+          .set({
+        "read": true,
+      }).onError((e, _) => log("Error writing document: $e"));
+    }
   }
 }
