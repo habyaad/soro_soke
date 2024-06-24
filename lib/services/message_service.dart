@@ -85,7 +85,8 @@ class MessageService {
           .doc(getConversationID(receiverUid))
           .set({
         "read": true,
-      }).onError((e, _) => log("Error writing document: $e"));
+      }, SetOptions(merge: true)).onError(
+              (e, _) => log("Error writing document: $e"));
     }
   }
 }
