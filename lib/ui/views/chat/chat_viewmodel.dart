@@ -47,6 +47,10 @@ class ChatViewModel extends BaseViewModel {
     return _messageService.getMessagesBetweenUsers(friendID);
   }
 
+  void markAsRead(String friendID) {
+    _messageService.markChatAsRead(friendID);
+  }
+
   void goBack() {
     _navigationService.back();
   }
