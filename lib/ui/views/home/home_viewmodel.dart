@@ -6,7 +6,6 @@ import 'package:soro_soke/services/message_service.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 import '../../../models/chat_model.dart';
-import '../../../services/friend_service.dart';
 import '../../../services/user_service.dart';
 
 class HomeViewModel extends BaseViewModel {
