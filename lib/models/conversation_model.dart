@@ -15,6 +15,7 @@ class Conversation {
   final DateTime lastUpdatedAt;
   final List<String> participantIds;
   final ChatModel sender;
+  final bool read;
   final ChatModel receiver;
 
   Conversation({
@@ -22,6 +23,7 @@ class Conversation {
     required this.lastUpdatedAt,
     required this.participantIds,
     required this.sender,
+    required this.read,
     required this.receiver,
   });
 
@@ -29,6 +31,7 @@ class Conversation {
         sender: ChatModel.fromJson(json["sender"]),
         receiver: ChatModel.fromJson(json["receiver"]),
         lastMessage: json["lastMessage"],
+        read: json["read"],
         lastUpdatedAt: json["lastUpdatedAt"] is Timestamp
             ? (json["lastUpdatedAt"] as Timestamp).toDate()
             : DateTime.parse(json["lastUpdatedAt"]),
@@ -39,6 +42,7 @@ class Conversation {
         "sender": sender.toJson(),
         "receiver": receiver.toJson(),
         "lastMessage": lastMessage,
+        "read": read,
         "lastUpdatedAt": lastUpdatedAt.toIso8601String(),
         "participantIds": List<dynamic>.from(participantIds.map((x) => x)),
       };
