@@ -193,6 +193,12 @@ class ChatView extends StackedView<ChatViewModel> {
   }
 
   @override
+  void onDispose(ChatViewModel viewModel) {
+    super.onDispose(viewModel);
+    viewModel.markAsRead(friend.uid);
+  }
+
+  @override
   ChatViewModel viewModelBuilder(
     BuildContext context,
   ) =>
